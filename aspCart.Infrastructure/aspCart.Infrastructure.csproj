@@ -4,4 +4,21 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="EFModels\" />
+    <Folder Include="EFRepository\" />
+    <Folder Include="Services\" />
+    <Folder Include="Services\Catalog\" />
+    <Folder Include="Services\Messages\" />
+    <Folder Include="Services\Sale\" />
+    <Folder Include="Services\Statistics\" />
+    <Folder Include="Services\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.9" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\aspCart.Core\aspCart.Core.csproj" />
+  </ItemGroup>
 </Project>
