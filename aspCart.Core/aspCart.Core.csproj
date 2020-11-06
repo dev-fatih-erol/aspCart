@@ -11,5 +11,12 @@
     <Folder Include="Domain\Sale\" />
     <Folder Include="Domain\Statistics\" />
     <Folder Include="Domain\User\" />
+    <Folder Include="Interface\" />
+    <Folder Include="Interface\Services\" />
+    <Folder Include="Interface\Services\Catalog\" />
+    <Folder Include="Interface\Services\User\" />
+    <Folder Include="Interface\Services\Sale\" />
+    <Folder Include="Interface\Services\Statistics\" />
+    <Folder Include="Interface\Services\Messages\" />
   </ItemGroup>
 </Project>
