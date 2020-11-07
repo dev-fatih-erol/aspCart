@@ -11,6 +11,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="SendGrid" Version="9.21.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\aspCart.Infrastructure\aspCart.Infrastructure.csproj">
@@ -35,5 +37,6 @@
     <Folder Include="Areas\Admin\Helpers\" />
     <Folder Include="Middleware\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Areas\Admin\Controllers\" />
   </ItemGroup>
 </Project>
