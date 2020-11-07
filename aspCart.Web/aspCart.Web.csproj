@@ -38,5 +38,7 @@
     <Folder Include="Middleware\" />
     <Folder Include="Controllers\" />
     <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Views\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
 </Project>
