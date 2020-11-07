@@ -71,7 +71,7 @@ namespace aspCart.Web
         {
             services.AddDbContext<ApplicationDbContext>(options =>
                      options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"),
-                     b => b.MigrationsAssembly("eShop.Web")));
+                     b => b.MigrationsAssembly("aspCart.Web")));
 
             services.Configure<IdentityOptions>(options =>
             {
