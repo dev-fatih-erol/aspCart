@@ -20,4 +20,19 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="Models\AccountViewModels\" />
+    <Folder Include="Models\ManageViewModels\" />
+    <Folder Include="Models\ContactUsViewModels\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Areas\" />
+    <Folder Include="Areas\Admin\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Models\Catalog\" />
+    <Folder Include="Areas\Admin\Models\Sale\" />
+    <Folder Include="Areas\Admin\Models\Support\" />
+    <Folder Include="Areas\Admin\Helpers\" />
+    <Folder Include="Middleware\" />
+  </ItemGroup>
 </Project>
