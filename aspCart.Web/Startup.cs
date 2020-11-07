@@ -146,12 +146,41 @@ namespace aspCart.Web
             app.UseSession();
             app.UseVisitorCounter();
 
-            app.UseEndpoints(endpoints =>
+            app.UseEndpoints(routes =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                routes.MapControllerRoute(
+                    name: "areaRoute",
+                    pattern: "{area:exists}/{controller}/{action}/{id?}",
+                    defaults: new { controller = "Dashboard", action = "Index" });
+
+                routes.MapControllerRoute(
+                    name: "productInfo",
+                    pattern: "Product/{seo}",
+                    defaults: new { controller = "Home", action = "ProductInfo" });
+
+                routes.MapControllerRoute(
+                    name: "category",
+                    pattern: "Category/{category}",
+                    defaults: new { controller = "Home", action = "ProductCategory" });
+
+                routes.MapControllerRoute(
+                    name: "manufacturer",
+                    pattern: "Manufacturer/{manufacturer}",
+                    defaults: new { controller = "Home", action = "ProductManufacturer" });
+
+                routes.MapControllerRoute(
+                    name: "productSearch",
+                    pattern: "search/{name?}",
+                    defaults: new { controller = "Home", action = "ProductSearch" });
+
+                routes.MapControllerRoute(
+                    name: "create review",
+                    pattern: "CreateReview/{id}",
+                    defaults: new { controller = "Home", action = "CreateReview" });
+
+                routes.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

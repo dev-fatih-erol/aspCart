@@ -34,5 +34,6 @@
     <Folder Include="Areas\Admin\Models\Support\" />
     <Folder Include="Areas\Admin\Helpers\" />
     <Folder Include="Middleware\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 </Project>
