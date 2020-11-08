@@ -41,5 +41,6 @@
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Views\" />
     <Folder Include="Views\Shared\" />
+    <Folder Include="Views\Home\" />
   </ItemGroup>
 </Project>
