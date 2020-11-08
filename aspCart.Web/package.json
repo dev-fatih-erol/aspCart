@@ -1,0 +1,28 @@
+{
+  "name": "aspcart.web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "admin-lte": "^2.3.11",
+    "bootstrap": "^3.3.7",
+    "ckeditor": "^4.6.2",
+    "datatables": "^1.10.13",
+    "datatables-bootstrap": "0.0.1",
+    "font-awesome": "^4.7.0",
+    "icheck": "^1.0.2",
+    "jquery": "^3.1.1",
+    "jquery-validation": "^1.16.0",
+    "jquery-validation-unobtrusive": "^3.2.6",
+    "morris.js": "^0.5.0",
+    "raphael": "^2.2.7"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2"
+  }
+}
