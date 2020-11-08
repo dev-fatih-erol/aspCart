@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using aspCart.Core.Interface.Services.Catalog;
 using aspCart.Core.Interface.Services.Messages;
 using aspCart.Core.Interface.Services.Sale;
@@ -22,13 +19,12 @@ using aspCart.Web.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 
 namespace aspCart.Web
@@ -69,6 +65,11 @@ namespace aspCart.Web
         [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<RequestLocalizationOptions>(options =>
+            {
+                options.SetDefaultCulture("tr-TR");
+            });
+
             services.AddDbContext<ApplicationDbContext>(options =>
                      options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"),
                      b => b.MigrationsAssembly("aspCart.Web")));
@@ -145,6 +146,7 @@ namespace aspCart.Web
             app.UseAuthorization();
             app.UseSession();
             app.UseVisitorCounter();
+            app.UseRequestLocalization();
 
             app.UseEndpoints(routes =>
             {
