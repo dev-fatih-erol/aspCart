@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Rewrite;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -91,6 +92,8 @@ namespace aspCart.Web
 
             services.Configure<UserAccount>(
                 Configuration.GetSection("UserAccount"));
+
+            services.Configure<RouteOptions>(options => options.LowercaseUrls = true);
 
             services.AddControllersWithViews();
 
