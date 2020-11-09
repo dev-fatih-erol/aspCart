@@ -42,5 +42,8 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Shared\" />
     <Folder Include="Views\Home\" />
+    <Folder Include="ViewComponents\" />
+    <Folder Include="Views\Shared\Components\" />
+    <Folder Include="Views\Shared\Components\Category\" />
   </ItemGroup>
 </Project>

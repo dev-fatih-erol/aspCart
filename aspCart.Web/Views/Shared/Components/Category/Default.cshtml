@@ -1,0 +1,6 @@
+﻿@model IEnumerable<aspCart.Core.Domain.Catalog.Category>
+
+@foreach (var category in Model)
+{
+    <a asp-controller="Category" asp-action="@category.Name">@category.Name</a>
+}
