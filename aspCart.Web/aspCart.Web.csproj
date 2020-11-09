@@ -45,5 +45,6 @@
     <Folder Include="ViewComponents\" />
     <Folder Include="Views\Shared\Components\" />
     <Folder Include="Views\Shared\Components\Category\" />
+    <Folder Include="Views\Shared\Components\PopularProduct\" />
   </ItemGroup>
 </Project>

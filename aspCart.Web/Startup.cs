@@ -159,7 +159,7 @@ namespace aspCart.Web
 
                 routes.MapControllerRoute(
                     name: "productInfo",
-                    pattern: "Product/{seo}",
+                    pattern: "{seo}",
                     defaults: new { controller = "Home", action = "ProductInfo" });
 
                 routes.MapControllerRoute(
