@@ -32,7 +32,7 @@
             string labelVaue = $"{manufacturer.Name} ({manufacturer.Quantity})";
 
             <div>
-                <input type="checkbox" id="@manufacturer.Name" name="Manufacturer" value="@manufacturer.SeoUrl" />
+                <input type="checkbox" id="@manufacturer.Name" name="marka" value="@manufacturer.SeoUrl" />
                 <label for="@manufacturer.Name">@labelVaue</label>
             </div>
         }
@@ -54,7 +54,7 @@
             string labelVaue = $"{category.Name} ({category.Quantity})";
 
             <div>
-                <input type="checkbox" id="@category.Name" name="Category" value="@category.SeoUrl" />
+                <input type="checkbox" id="@category.Name" name="kategori" value="@category.SeoUrl" />
                 <label for="@category.Name">@labelVaue</label>
             </div>
         }
@@ -76,7 +76,7 @@
             string labelValue = $"{minPrice} - {maxPrice} ({g.Count()})";
 
             <div>
-                <input type="checkbox" id="@minPrice-@maxPrice" name="Price" value="@minPrice-@maxPrice" />
+                <input type="checkbox" id="@minPrice-@maxPrice" name="fiyat" value="@minPrice-@maxPrice" />
                 <label for="@minPrice-@maxPrice">@labelValue</label>
             </div>
         }

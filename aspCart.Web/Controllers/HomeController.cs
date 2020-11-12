@@ -111,7 +111,7 @@ namespace aspCart.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ProductCategory(string category, string sortBy, [FromQuery] string[] manufacturer, [FromQuery] string[] price)
+        public IActionResult ProductCategory(string category, string sortBy, [FromQuery(Name = "marka")] string[] manufacturer, [FromQuery(Name = "fiyat")] string[] price)
         {
             if (category != null)
             {
@@ -174,7 +174,7 @@ namespace aspCart.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ProductManufacturer(string manufacturer, string sortBy, [FromQuery] string[] category, [FromQuery] string[] price)
+        public IActionResult ProductManufacturer(string manufacturer, string sortBy, [FromQuery(Name = "kategori")] string[] category, [FromQuery(Name = "fiyat")] string[] price)
         {
             if (manufacturer != null)
             {
