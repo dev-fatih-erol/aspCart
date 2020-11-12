@@ -22,6 +22,7 @@ namespace aspCart.Web.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string SeoUrl { get; set; }
         public int Quantity { get; set; }
     }
 
@@ -29,6 +30,7 @@ namespace aspCart.Web.Models
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
+        public string SeoUrl { get; set; }
         public int Quantity { get; set; }
     }
 }

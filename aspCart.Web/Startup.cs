@@ -164,12 +164,12 @@ namespace aspCart.Web
 
                 routes.MapControllerRoute(
                     name: "category",
-                    pattern: "Category/{category}",
+                    pattern: "Kategori/{category}",
                     defaults: new { controller = "Home", action = "ProductCategory" });
 
                 routes.MapControllerRoute(
                     name: "manufacturer",
-                    pattern: "Manufacturer/{manufacturer}",
+                    pattern: "Marka/{manufacturer}",
                     defaults: new { controller = "Home", action = "ProductManufacturer" });
 
                 routes.MapControllerRoute(

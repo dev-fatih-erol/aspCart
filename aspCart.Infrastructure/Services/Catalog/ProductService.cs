@@ -182,22 +182,32 @@ namespace aspCart.Infrastructure.Services.Catalog
             // category filter
             if(categoryFilter != null && categoryFilter.Length > 0)
             {
-                result = result.Where(x => x
-                    .Categories.Select(c => c.Category.Name.ToLower())
-                    .Intersect(categoryFilter.Select(cf => cf.ToLower()))
-                    .Count() > 0
-                );
+                //result = result.Where(x => x
+                //    .Categories.Select(c => c.Category.Name.ToLower())
+                //    .Intersect(categoryFilter.Select(cf => cf.ToLower()))
+                //    .Count() > 0
+                //);
+
+                result = result.Where(x => x.Categories
+                               .Any(c => categoryFilter
+                               .Select(cf => cf.ToLower())
+                               .Contains(c.Category.SeoUrl.ToLower())));
             }
 
             // manufacturer filter
             if(manufacturerFilter != null && manufacturerFilter.Length > 0)
             {
-                result = result.Where(x => x
-                    .Manufacturers
-                    .Select(c => c.Manufacturer.Name.ToLower())
-                    .Intersect(manufacturerFilter.Select(mf => mf.ToLower()))
-                    .Count() > 0
-                );
+                //result = result.Where(x => x
+                //    .Manufacturers
+                //    .Select(c => c.Manufacturer.Name.ToLower())
+                //    .Intersect(manufacturerFilter.Select(mf => mf.ToLower()))
+                //    .Count() > 0
+                //);
+
+                result = result.Where(x => x.Manufacturers
+                               .Any(m => manufacturerFilter
+                               .Select(mf => mf.ToLower())
+                               .Contains(m.Manufacturer.SeoUrl.ToLower())));
             }
 
             // price filter
