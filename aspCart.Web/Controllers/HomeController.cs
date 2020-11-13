@@ -111,7 +111,7 @@ namespace aspCart.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ProductCategory(string category, string sortBy, [FromQuery(Name = "marka")] string[] manufacturer, [FromQuery(Name = "fiyat")] string[] price)
+        public IActionResult ProductCategory(string category, [FromQuery(Name = "siralama")] string sortBy, [FromQuery(Name = "marka")] string[] manufacturer, [FromQuery(Name = "fiyat")] string[] price)
         {
             if (category != null)
             {
@@ -174,7 +174,7 @@ namespace aspCart.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult ProductManufacturer(string manufacturer, string sortBy, [FromQuery(Name = "kategori")] string[] category, [FromQuery(Name = "fiyat")] string[] price)
+        public IActionResult ProductManufacturer(string manufacturer, [FromQuery(Name = "siralama")] string sortBy, [FromQuery(Name = "kategori")] string[] category, [FromQuery(Name = "fiyat")] string[] price)
         {
             if (manufacturer != null)
             {
@@ -274,28 +274,28 @@ namespace aspCart.Web.Controllers
         {
             switch (sortBy)
             {
-                case "LowestPrice":
+                case "endusukfiyat":
                     model = model.OrderBy(x => x.Price)
                         .ThenBy(x => x.Name)
                         .ToList();
                     break;
 
-                case "HighestPrice":
+                case "enyuksekfiyat":
                     model = model.OrderByDescending(x => x.Price)
                         .ThenBy(x => x.Name)
                         .ToList();
                     break;
 
-                case "BestSelling":
+                case "encoksatan":
                     break;
 
-                case "MostReviews":
+                case "encokdegerlendirme":
                     model = model.OrderByDescending(x => x.ReviewCount)
                         .ThenBy(x => x.Name)
                         .ToList();
                     break;
 
-                case "NewestToOldest":
+                case "enyeniler":
                     model = model.OrderByDescending(x => x.DateAdded)
                         .ThenBy(x => x.Name)
                         .ToList();

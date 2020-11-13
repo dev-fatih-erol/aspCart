@@ -16,22 +16,24 @@
                 <hr />
             </div>
         </div>
-        <div class="row"> <!-- sorting place holder -->
+        <div class="row">
+            <!-- sorting place holder -->
             <div class="col-md-12">
                 <form id="sortByForm">
                     <label>Sort by: </label>
                     <select id="sortBy">
-                        <option id="Default" value="Default">Default</option>
-                        <option id="LowestPrice" value="LowestPrice">Lowest Price</option>
-                        <option id="HighestPrice" value="HighestPrice">Highest Price</option>
-                        <option id="BestSelling" value="BestSelling" disabled>Best Selling</option>
-                        <option id="MostReviews" value="MostReviews">Most Reviews</option>
-                        <option id="NewestToOldest" value="NewestToOldest">Newest to Oldest</option>
+                        <option id="varsayilan" value="varsayilan">Varsayılan</option>
+                        <option id="endusukfiyat" value="endusukfiyat">En düşük fiyat</option>
+                        <option id="enyuksekfiyat" value="enyuksekfiyat">En yüksek fiyat</option>
+                        <option id="encoksatan" value="encoksatan" disabled>En çok satan</option>
+                        <option id="encokdegerlendirme" value="encokdegerlendirme">En çok değerlendirme</option>
+                        <option id="enyeniler" value="enyeniler">En yeniler</option>
                     </select>
                 </form>
             </div>
         </div>
-        <div class="row"> <!-- sort badge -->
+        <div class="row">
+            <!-- sort badge -->
             <div class="col-md-12">
                 <div class="form-horizontal">
                     @foreach (var c in (List<string>)ViewData["SortKey"])
@@ -43,7 +45,8 @@
                 </div>
             </div>
         </div>
-        <div class="row" style="margin-top: 8px;"> <!-- main content -->
+        <div class="row" style="margin-top: 8px;">
+            <!-- main content -->
             @if (Model.Count() > 0)
             {
                 @foreach (var product in Model)
@@ -92,8 +95,8 @@
         </div>
     </div>
 </div>
-
-<script>
+@section Scripts{
+    <script>
     // recheck all selected filters
     $(function () {
         let sortKey = @Json.Serialize(ViewData["SortKey"]);
@@ -112,7 +115,7 @@
     });
 
     $(function(){
-        let sortBy = '@(ViewData["SortBy"] == null ? "Default" : ViewData["SortBy"])';
+        let sortBy = '@(ViewData["SortBy"] == null ? "varsayilan" : ViewData["SortBy"])';
         $('#' + sortBy).prop('selected', true);
 
         $('#sortBy').on('change', function(){
@@ -120,4 +123,5 @@
             $('#filterForm').submit(); // submit form from file Views/Shared/Components/Filter/Default.cshtml
         });
     });
-</script>
+    </script>
+}
