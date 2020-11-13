@@ -1,16 +1,29 @@
 ﻿@model IEnumerable<ProductModel>
 <div class="border-bottom border-color-1 mb-5">
-    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Bizim Seçtiklerimiz</h3>
+    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">En Çok Beğenilen</h3>
 </div>
 <ul class="list-unstyled products-group">
     @foreach (var product in Model)
     {
         <li class="product-item product-item__list row no-gutters mb-6 remove-divider">
             <div class="col-auto">
-                <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block width-75 text-center"><img class="img-fluid" src="../../assets/img/75X75/img4.jpg" alt="@product.Name"></a>
+                <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block width-75 text-center"><img class="img-fluid" src="../../assets/img/75X75/img8.jpg" alt="@product.Name"></a>
             </div>
             <div class="col pl-4 d-flex flex-column">
                 <h5 class="product-item__title mb-0"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                <div class="text-warning mb-2">
+                    @{ int activeStar = 0;
+                        int roundedRating = Convert.ToInt32(Math.Round(product.Rating, 0, MidpointRounding.AwayFromZero));
+                    }
+                    @for (int i = 0; i < roundedRating; i++)
+                    {
+                        <small class="fas fa-star"></small>activeStar++;
+                    }
+                    @for (int i = 0; i < 5 - activeStar; i++)
+                    {
+                        <small class="far fa-star text-muted"></small>
+                    }
+                </div>
                 <div class="prodcut-price mt-auto @((product.OldPrice > 0) ? "flex-horizontal-center": "")">
                     @if (product.OldPrice > 0)
                     {

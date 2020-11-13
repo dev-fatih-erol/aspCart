@@ -35,5 +35,11 @@ namespace aspCart.Core.Interface.Services.Catalog
         /// </summary>
         /// <param name="review"></param>
         void UpdateReview(Review review);
+
+        /// <summary>
+        /// Get review context table
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Review> Table();
     }
 }

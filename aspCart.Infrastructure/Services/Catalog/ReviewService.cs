@@ -85,6 +85,15 @@ namespace aspCart.Infrastructure.Services.Catalog
             _reviewRepository.SaveChanges();
         }
 
+        /// <summary>
+        /// Get review context table
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Review> Table()
+        {
+            return _context.Reviews;
+        }
+
         #endregion
     }
 }
