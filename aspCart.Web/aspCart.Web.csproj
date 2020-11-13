@@ -48,5 +48,6 @@
     <Folder Include="Views\Shared\Components\PopularProduct\" />
     <Folder Include="Views\Shared\Components\Filter\" />
     <Folder Include="Views\Shared\Components\BestSellers\" />
+    <Folder Include="Views\Shared\Components\OurPicks\" />
   </ItemGroup>
 </Project>
