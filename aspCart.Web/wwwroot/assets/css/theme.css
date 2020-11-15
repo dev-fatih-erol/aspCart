@@ -1,4 +1,4 @@
-@charset "UTF-8";
+﻿@charset "UTF-8";
 /*------------------------------------
   Madrasthemes variables
 ------------------------------------*/
@@ -20697,6 +20697,10 @@ button.bg-indigo:focus {
   .text-wd-center {
     text-align: center !important;
   }
+}
+
+.text-none {
+    text-transform: none !important;
 }
 
 .text-lowercase {

@@ -8,15 +8,14 @@ namespace aspCart.Web.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Lütfen e-posta adresinizi girin")]
+        [EmailAddress(ErrorMessage = "Lütfen geçerli bir e-posta girin")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Lütfen şifrenizi girin")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
     }
 }
