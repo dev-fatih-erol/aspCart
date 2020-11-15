@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+@if (SignInManager.IsSignedIn(User))
+{
+
+}
+else
+{
+    <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border full-bg">
+        <!-- Account Sidebar Toggle Button -->
+        <a asp-action="Register" asp-controller="Account" role="button" class="u-header-topbar__nav-link">
+            <i class="ec ec-user mr-1"></i> Kaydol
+        </a>
+        <span class="font-size-13">veya</span>
+        <a asp-action="Login" asp-controller="Account" role="button" class="u-header-topbar__nav-link">
+            Giriş Yap
+        </a>
+        <!-- End Account Sidebar Toggle Button -->
+    </li>
+}
