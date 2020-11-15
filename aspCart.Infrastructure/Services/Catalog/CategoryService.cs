@@ -159,6 +159,11 @@ namespace aspCart.Infrastructure.Services.Catalog
             _productCategoryRepository.SaveChanges();
         }
 
+        public Category GetByName(string name)
+        {
+            return _categoryRepository.FindByExpression(x => x.Name == name);
+        }
+
         #endregion
     }
 }

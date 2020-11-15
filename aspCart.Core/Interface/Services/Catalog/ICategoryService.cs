@@ -63,5 +63,7 @@ namespace aspCart.Core.Interface.Services.Catalog
         /// </summary>
         /// <param name="productId">Product id</param>
         void DeleteAllProductCategoryMappingsByProductId(Guid productId);
+
+        Category GetByName(string name);
     }
 }

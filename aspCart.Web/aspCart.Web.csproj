@@ -51,5 +51,6 @@
     <Folder Include="Views\Shared\Components\OurPicks\" />
     <Folder Include="Views\Shared\Components\TopRated\" />
     <Folder Include="Views\Shared\Components\RecommendationForYou\" />
+    <Folder Include="Views\Shared\Components\SingleCategory\" />
   </ItemGroup>
 </Project>
