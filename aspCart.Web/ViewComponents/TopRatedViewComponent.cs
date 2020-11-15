@@ -43,7 +43,10 @@ namespace aspCart.Web.ViewComponents
                   .Select(x => x.ProductId)
                   .ToList();
 
-            productEntities = productEntities.Where(x => productIds.Contains(x.Id)).Take(3);
+            productEntities = productEntities
+                         .Where(x => productIds.Contains(x.Id))
+                         .OrderBy(x => productIds.IndexOf(x.Id))
+                         .ToList();
 
             var productList = new List<ProductModel>();
 

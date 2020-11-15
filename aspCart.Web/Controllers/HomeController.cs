@@ -37,7 +37,8 @@ namespace aspCart.Web.Controllers
         public IActionResult Index()
         {
             var productEntities = _productService.GetAllProducts()
-                .Where(x => x.Published == true)
+                .Where(x => x.SpecialPriceEndDate != null &&
+                            x.SpecialPriceEndDate >= DateTime.Now)
                 .OrderBy(p => Guid.NewGuid())
                 .Take(9)
                 .ToList();
@@ -81,6 +82,13 @@ namespace aspCart.Web.Controllers
                 productList.Add(productModel);
             }
 
+            /// Start silinecek 
+            var proc1 = productList.Take(3).ToList();
+            var proc2 = productList.Take(3).ToList();
+            productList.AddRange(proc1);
+            productList.AddRange(proc2);
+            /// End silinecek
+            
             return View(productList);
         }
 
