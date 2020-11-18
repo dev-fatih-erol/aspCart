@@ -183,6 +183,11 @@ namespace aspCart.Web
                     defaults: new { controller = "Home", action = "CreateReview" });
 
                 routes.MapControllerRoute(
+                    name: "Login",
+                    pattern: "Hesabim/Giris-Yap",
+                    defaults: new { controller = "Account", action = "Login" });
+
+                routes.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
