@@ -32,7 +32,6 @@ namespace aspCart.Web.Controllers
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
-        [ImportModelState]
         public IActionResult Login(string returnUrl = null)
         {
             if (returnUrl != null)
@@ -50,7 +49,6 @@ namespace aspCart.Web.Controllers
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
-        [ExportModelState]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
@@ -66,17 +64,17 @@ namespace aspCart.Web.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    return RedirectToAction("Lockout", "Account");
+                    return View("Lockout");
                 }
                 else
                 {
                     ModelState.AddModelError(string.Empty, "Girdiğiniz bilgiler ile herhangi bir hesabı eşleştiremedik, kontrol edip tekrar deneyin.");
-                    return RedirectToAction("Login", "Account");
+                    return View(model);
                 }
             }
 
             // If we got this far, something failed, redisplay form
-            return RedirectToAction("Login", "Account");
+            return View(model);
         }
 
         //
