@@ -8,20 +8,19 @@ namespace aspCart.Web.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email")]
+        [Required(ErrorMessage = "Lütfen e-posta adresinizi girin")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Lütfen e-posta adresinizi girin")]
+        public string Surname { get; set; }
+
+        [Required(ErrorMessage = "Lütfen e-posta adresinizi girin")]
+        [EmailAddress(ErrorMessage = "Lütfen geçerli bir e-posta girin")]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+        [Required(ErrorMessage = "Lütfen şifrenizi girin")]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [StringLength(100, ErrorMessage = "{0} en az {2} ve en fazla {1} karakter uzunluğunda olmalıdır.", MinimumLength = 4)]
         public string Password { get; set; }
-
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
     }
 }

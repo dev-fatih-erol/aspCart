@@ -1,43 +1,120 @@
 ﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Kaydol - OrganikFabrika.com";
 }
+<main id="content" role="main">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-action="Index" asp-controller="Home">Anasayfa</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">Kaydol</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
+    </div>
+    <!-- End breadcrumb -->
 
-<div class="container">
-    <h2>@ViewData["Title"]</h2>
-    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-        <h4>Create a new account</h4>
-        <hr />
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group row">
-            <label asp-for="Email" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+    <div class="container">
+        <div class="mb-4">
+            <h1 class="text-center">Hesabım</h1>
+        </div>
+        <div class="my-4 my-xl-8">
+            <div class="row">
+                <div class="col-md-5 ml-xl-auto mr-md-auto mr-xl-0 mb-8 mb-md-0">
+                    <!-- Title -->
+                    <div class="border-bottom border-color-1 mb-6">
+                        <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">Kaydol</h3>
+                    </div>
+                    <p class="text-gray-90 mb-4">Hoşgeldiniz! Hemen bir hesap oluşturun.</p>
+                    <!-- End Title -->
+                    <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <!-- Form Group -->
+                        <div class="js-form-message form-group">
+                            <label asp-for="Name" class="form-label text-none">Ad <span class="text-danger">*</span></label>
+                            <input asp-for="Name" class="form-control" placeholder="Ad" aria-label="Ad">
+                            <span asp-validation-for="Name" class="d-block text-danger my-2"></span>
+                        </div>
+                        <!-- End Form Group -->
+                        <!-- Form Group -->
+                        <div class="js-form-message form-group">
+                            <label asp-for="Surname" class="form-label text-none">Soyad <span class="text-danger">*</span></label>
+                            <input asp-for="Surname" class="form-control" placeholder="Soyad" aria-label="Soyad">
+                            <span asp-validation-for="Surname" class="d-block text-danger my-2"></span>
+                        </div>
+                        <!-- End Form Group -->
+                        <!-- Form Group -->
+                        <div class="js-form-message form-group">
+                            <label asp-for="Email" class="form-label text-none">E-posta adresi <span class="text-danger">*</span></label>
+                            <input asp-for="Email" class="form-control" placeholder="E-posta adresi" aria-label="E-posta adresi">
+                            <span asp-validation-for="Email" class="d-block text-danger my-2"></span>
+                        </div>
+                        <!-- End Form Group -->
+                        <!-- Form Group -->
+                        <div class="js-form-message form-group">
+                            <label asp-for="Password" class="form-label text-none">Şifre <span class="text-danger">*</span></label>
+                            <input asp-for="Password" class="form-control" placeholder="Şifre" aria-label="Şifre">
+                            <span asp-validation-for="Password" class="d-block text-danger my-2"></span>
+                        </div>
+                        <!-- End Form Group -->
+                        <!-- Button -->
+                        <div class="mb-1">
+                            <div class="mb-3">
+                                <button type="submit" class="btn btn-primary-dark-w px-5">Kaydol</button>
+                            </div>
+                            <div class="mb-2">
+                                <a class="text-blue" href="#">Şifrenizi mi unuttunuz?</a>
+                            </div>
+                        </div>
+                        <!-- End Button -->
+                    </form>
+                </div>
+                <div class="col-md-1 d-none d-md-block">
+                    <div class="flex-content-center h-100">
+                        <div class="width-1 bg-1 h-100"></div>
+                        <div class="width-50 height-50 border border-color-1 rounded-circle flex-content-center font-italic bg-white position-absolute">veya</div>
+                    </div>
+                </div>
+                <div class="col-md-5 ml-md-auto ml-xl-0 mr-xl-auto">
+                    <!-- Title -->
+                    <div class="border-bottom border-color-1 mb-6">
+                        <h3 class="d-inline-block section-title mb-0 pb-2 font-size-26">Giriş Yap</h3>
+                    </div>
+                    <p class="text-gray-90 mb-4">Kişiselleştirilmiş bir alışveriş deneyiminin avantajlarından yararlanmak için bugün yeni bir hesap oluşturun.</p>
+                    <!-- End Title -->
+                    <p class="text-gray-90 mb-4">
+                        Kişisel verileriniz, bu web sitesindeki deneyiminizi desteklemek, hesabınızı yönetmek ve <a href="#" class="text-blue">gizlilik politika</a>mızda açıklanan diğer amaçlar için kullanılacaktır.
+                    </p>
+                    <!-- Button -->
+                    <div class="mb-6">
+                        <div class="mb-3">
+                            <a asp-controller="Account" asp-action="Register" class="btn btn-primary-dark-w px-5">Şimdi Giriş Yap</a>
+                        </div>
+                    </div>
+                    <!-- End Button -->
+                    <h3 class="font-size-18 mb-3">Hemen giriş yaparsanız şunları yapabileceksiniz :</h3>
+                    <ul class="list-group list-group-borderless">
+                        <li class="list-group-item px-0">
+                            <i class="fas fa-check mr-2 text-green font-size-16"></i>
+                            250 TL + alışverişlerinizde Ücretsiz Kargo
+                        </li>
+                        <li class="list-group-item px-0">
+                            <i class="fas fa-check mr-2 text-green font-size-16"></i>
+                            İlk alışverişinizde 10 TL'lik kupon kazanın
+                        </li>
+                        <li class="list-group-item px-0">
+                            <i class="fas fa-check mr-2 text-green font-size-16"></i>
+                            %100 Organik Ürün Garantisi
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <label asp-for="Password" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="ConfirmPassword" class="form-control" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-offset-2 col-md-10">
-                <button type="submit" class="btn btn-secondary">Register</button>
-            </div>
-        </div>
-    </form>
-
-    @section Scripts {
-        @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
-    }
-</div>
+    </div>
+</main>
