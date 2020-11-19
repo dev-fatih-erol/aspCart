@@ -188,6 +188,11 @@ namespace aspCart.Web
                     defaults: new { controller = "Account", action = "Login" });
 
                 routes.MapControllerRoute(
+                    name: "Login",
+                    pattern: "Hesabim/Cikis-Yap",
+                    defaults: new { controller = "Account", action = "LogOff" });
+
+                routes.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
