@@ -193,6 +193,11 @@ namespace aspCart.Web
                     defaults: new { controller = "Account", action = "LogOff" });
 
                 routes.MapControllerRoute(
+                    name: "Register",
+                    pattern: "Hesabim/Kaydol",
+                    defaults: new { controller = "Account", action = "Register" });
+ 
+                routes.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
