@@ -97,7 +97,7 @@ namespace aspCart.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { Name = model.Name, Surname = model.Surname, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -106,7 +106,11 @@ namespace aspCart.Web.Controllers
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     return RedirectToLocal(returnUrl);
                 }
-                AddErrors(result);
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Bu e-posta adresine ait bir hesabınız olduğunu fark ettik. Hesabınıza giriş yapabilir veya hatırlamıyorsanız şifrenizi yenileyebilirsiniz.");
+                    return View(model);
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -124,14 +128,6 @@ namespace aspCart.Web.Controllers
         }
 
         #region Helpers
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
