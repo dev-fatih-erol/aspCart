@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Globalization;
+using System.Threading.Tasks;
 using aspCart.Infrastructure.EFModels;
 using aspCart.Web.Models.AccountViewModels;
 using eShop.Web.Attributes;
@@ -97,7 +98,9 @@ namespace aspCart.Web.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { Name = model.Name, Surname = model.Surname, UserName = model.Email, Email = model.Email };
+                var name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.Name);
+                var surname = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(model.Surname);
+                var user = new ApplicationUser { Name = name, Surname = surname, UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
