@@ -90,7 +90,7 @@ namespace aspCart.Infrastructure.Services.Catalog
                 .Include(x => x.Manufacturers).ThenInclude(x => x.Manufacturer)
                 .Include(x => x.Specifications).ThenInclude(x => x.Specification)
                 .AsNoTracking()
-                .SingleOrDefault(x => x.SeoUrl == seo);
+                .SingleOrDefault(x => x.SeoUrl.ToLower() == seo.ToLower());
 
             return entity;
         }
