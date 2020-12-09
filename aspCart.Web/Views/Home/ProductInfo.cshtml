@@ -1,6 +1,7 @@
 ﻿@model ProductModel
 @{
     ViewData["Title"] = @Model.MetaTitle ?? Model.Name;
+    var timeSpan = new TimeSpanHelper();
 }
 
 <main id="content" role="main">
@@ -120,9 +121,38 @@
                                 <li>20 MP Electro and 28 megapixel CMOS rear camera</li>
                             </ul>
                         </div>
-                        <p><strong>Teslimat Bilgisi</strong>: @((Model.Price >= 250) ? "Kargo Bedava" : "250 TL ve üzeri alışverişlerde Kargo Bedava")</p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                        <p><strong>SKU</strong>: FW511948218</p>
+                        <p><strong>Teslimat Bilgisi</strong>: @((Model.Price >= 250) ? "Kargo Bedava" : "250 TL ve üzeri Kargo Bedava")</p>
+                        @{
+                            if (DateTime.Today.DayOfWeek == DayOfWeek.Saturday)
+                            {
+                                <p><strong>Kargo Bilgisi</strong>: En geç <strong>@DateTime.Now.AddDays(2).ToString("dd MMMM dddd")</strong> günü Kargoda</p>
+                            }
+                            else if (DateTime.Today.DayOfWeek == DayOfWeek.Sunday)
+                            {
+                                <p><strong>Kargo Bilgisi</strong>: En geç <strong>@DateTime.Now.AddDays(1).ToString("dd MMMM dddd")</strong> günü Kargoda</p>
+                            }
+                            else
+                            {
+                                var startTime = new TimeSpan(0, 0, 0);
+                                var endTime = new TimeSpan(15, 0, 0);
+                                var currentTime = DateTime.Now.TimeOfDay;
+                                if ((currentTime >= startTime) && (currentTime <= endTime))
+                                {
+                                    <p><strong>Kargo Bilgisi</strong>: Siparişinizi <strong>@timeSpan.GetRemainingTime(currentTime, endTime)</strong> içinde verirseniz bugün kargoda</p>
+                                }
+                                else
+                                {
+                                    if (DateTime.Today.DayOfWeek == DayOfWeek.Friday)
+                                    {
+                                        <p><strong>Kargo Bilgisi</strong>: En geç <strong>@DateTime.Now.AddDays(3).ToString("dd MMMM dddd")</strong> günü Kargoda</p>
+                                    }
+                                    else
+                                    {
+                                        <p><strong>Kargo Bilgisi</strong>: En geç <strong>@DateTime.Now.AddDays(1).ToString("dd MMMM dddd")</strong> günü Kargoda</p>
+                                    }
+                                }
+                            }
+                        }
                     </div>
                 </div>
                 <div class="mx-md-auto mx-lg-0 col-md-6 col-lg-4 col-xl-3">
