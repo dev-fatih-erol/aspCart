@@ -127,3 +127,8 @@
     #accountDropdown1 .dropdown-item:hover {
         background: #f5f5f5 !important;
     }
+
+.text-amount {
+    text-decoration: line-through;
+    color: #848484;
+}

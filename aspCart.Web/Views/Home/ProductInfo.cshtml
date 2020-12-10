@@ -160,10 +160,18 @@
                         <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
                             <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">Availability: <span class="text-green font-weight-bold">26 in stock</span></div>
                             <div class="mb-3">
-                                <div class="font-size-36">$685.00</div>
+                                @if (Model.OldPrice > 0)
+                                {
+                                    <div class="font-size-22 text-amount">@Model.OldPrice.ToString("N2") TL</div>
+                                    <div class="font-size-36">@Html.Raw(Model.Price.ToString("N2")) TL</div>
+                                }
+                                else
+                                {
+                                    <div class="font-size-36">@Html.Raw(Model.Price.ToString("N2")) TL</div>
+                                }
                             </div>
                             <div class="mb-3">
-                                <h6 class="font-size-14">Quantity</h6>
+                                <h6 class="font-size-14">Adet</h6>
                                 <!-- Quantity -->
                                 <div class="border rounded-pill py-1 w-md-60 height-35 px-3 border-color-1">
                                     <div class="js-quantity row align-items-center">
@@ -183,11 +191,11 @@
                                 <!-- End Quantity -->
                             </div>
                             <div class="mb-3">
-                                <h6 class="font-size-14">Color</h6>
+                                <h6 class="font-size-14">Ağırlık</h6>
                                 <!-- Select -->
                                 <select class="js-select selectpicker dropdown-select btn-block col-12 px-0"
                                         data-style="btn-sm bg-white font-weight-normal py-2 border">
-                                    <option value="one" selected>White with Gold</option>
+                                    <option value="one" selected>1 Kg</option>
                                     <option value="two">Red</option>
                                     <option value="three">Green</option>
                                     <option value="four">Blue</option>
@@ -195,10 +203,10 @@
                                 <!-- End Select -->
                             </div>
                             <div class="mb-2 pb-0dot5">
-                                <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Add to Cart</a>
+                                <a href="#" class="btn btn-block btn-primary-dark"><i class="ec ec-add-to-cart mr-2 font-size-20"></i> Sepete Ekle</a>
                             </div>
                             <div class="mb-3">
-                                <a href="#" class="btn btn-block btn-dark">Buy Now</a>
+                                <a href="#" class="btn btn-block btn-dark">Hemen Satın Al</a>
                             </div>
                             <div class="flex-content-center flex-wrap">
                                 <a href="#" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
