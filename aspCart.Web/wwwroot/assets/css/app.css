@@ -132,3 +132,7 @@
     text-decoration: line-through;
     color: #848484;
 }
+
+.font-weight-600{
+    font-weight: 600;
+}
