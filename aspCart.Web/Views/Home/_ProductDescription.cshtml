@@ -1,0 +1,11 @@
+﻿@model ProductModel
+<div>
+    @if (Model.Description != null && Model.Description.Length > 0)
+    {
+        @Html.Raw(Model.Description)
+    }
+    else
+    {
+        <h3 style="text-align:center" class="font-size-18 my-3">Ürün Açıklaması Bulunmuyor</h3>
+    }
+</div>

@@ -1,0 +1,25 @@
+﻿@model ProductModel
+<div>
+    @if (Model.Specifications.Count > 0)
+    {
+        <div class="table-responsive mb-4">
+            <table class="table table-hover">
+                <tbody>
+                    @{ var i = 0;}
+                    @foreach (var specification in Model.Specifications)
+                    {
+                        <tr>
+                            <th class="px-4 px-xl-5 @(i == 0 ? "border-top-0" : "")">@specification.Key</th>
+                            <td class="@(i == 0 ? "border-top-0" : "")">@Html.Raw(specification.Value)</td>
+                        </tr>
+                        i++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <h3 style="text-align:center" class="font-size-18 my-3">Ürün Özelliği Bulunmuyor</h3>
+    }
+</div>
