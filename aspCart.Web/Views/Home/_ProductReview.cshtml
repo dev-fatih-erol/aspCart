@@ -130,9 +130,7 @@
                 reviewText = "Değerlendirmeni Güncelle";
             }
         }
-        <a asp-controller="Product" asp-action="CreateReview" asp-route-id="@Model.Id" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">
-            @reviewText
-        </a>
+        <a asp-controller="Product" asp-action="CreateReview" asp-route-id="@Model.Id" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">@reviewText</a>
     </div>
 </div>
 <!-- Review -->
