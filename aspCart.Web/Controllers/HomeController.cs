@@ -100,6 +100,11 @@ namespace aspCart.Web.Controllers
                 if (productEntity != null)
                 {
                     var productModel = _mapper.Map<Product, ProductModel>(productEntity);
+
+                    productModel.Categories = productEntity.Categories
+                        .Select(x => new CategoryModel { Name = x.Category.Name, SeoUrl = x.Category.SeoUrl })
+                        .ToList();
+
                     productModel.Description = System.Net.WebUtility.HtmlDecode(productModel.Description);
 
                     // check for discount
