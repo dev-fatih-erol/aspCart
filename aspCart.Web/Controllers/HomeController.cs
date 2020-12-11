@@ -162,6 +162,7 @@ namespace aspCart.Web.Controllers
                     if (User.Identity.IsAuthenticated)
                         ViewData["ProductReviewer"] = _reviewService.GetReviewByProductIdUserId(productModel.Id, GetCurrentUserId()) != null ? true : false;
 
+                    ViewBag.CategoryId = productEntity.Categories.First().CategoryId;
                     return View(productModel);
                 }
             }

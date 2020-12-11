@@ -54,5 +54,7 @@
     <Folder Include="Views\Shared\Components\SingleCategory\" />
     <Folder Include="Views\Account\" />
     <Folder Include="Attributes\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Views\Shared\Components\CategoryNavigation\" />
   </ItemGroup>
 </Project>
