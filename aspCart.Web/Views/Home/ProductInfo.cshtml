@@ -69,7 +69,7 @@
                 </div>
                 <div class="col-md-6 col-lg-4 col-xl-4 mb-md-6 mb-lg-0">
                     <div class="mb-2">
-                        <a asp-route-category="@Model.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home"  class="font-size-12 text-gray-5 mb-2 d-inline-block">@Model.Categories.First().Name</a>
+                        <a asp-route-category="@Model.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5 mb-2 d-inline-block">@Model.Categories.First().Name</a>
                         <h2 class="font-size-25 text-lh-1dot2">@Model.Name</h2>
                         @if (Model.Rating > 0)
                         {
@@ -684,3 +684,10 @@
     </div>
 
 </main>
+@section Scripts{
+    <script>
+    $(function () {
+        alert("sd");
+    });
+    </script>
+}
