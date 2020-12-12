@@ -127,7 +127,7 @@
         @{ var reviewText = "Değerlendir";
             if (ViewData["ProductReviewer"] != null && (bool)ViewData["ProductReviewer"])
             {
-                reviewText = "Değerlendirmeni Güncelle";
+                reviewText = "Değerlendirmeni Gör";
             }
         }
         <a asp-controller="Product" asp-action="CreateReview" asp-route-id="@Model.Id" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">@reviewText</a>
