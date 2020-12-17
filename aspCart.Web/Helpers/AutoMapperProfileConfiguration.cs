@@ -49,6 +49,8 @@ namespace aspCart.Web.Helpers
 
             // review
             CreateMap<Review, ReviewModel>()
+                .ForMember(d => d.CreatedOn, o => o.MapFrom(s => s.CreatedOn.ToString("dd MMMM yyyy")))
+                .ForMember(d => d.DateModified, o => o.MapFrom(s => s.DateModified.ToString("dd MMMM yyyy")))
                 .ReverseMap();
 
             // specifications

@@ -687,7 +687,79 @@
 @section Scripts{
     <script>
     $(function () {
-        alert("sd");
+        var template = ""
+            + "<div class=\"border-bottom border-color-1 pb-4 mb-4\"> "
+            + "    <div class=\"d-flex align-items-center text-secondary font-size-1 mb-2\"> "
+            + "        <div class=\"text-warning text-ls-n2 font-size-16\" style=\"width: 80px;\"> "
+            + "            <small class=\"fas fa-star\"></small> "
+            + "            <small class=\"fas fa-star\"></small> "
+            + "            <small class=\"fas fa-star\"></small> "
+            + "            <small class=\"fas fa-star\"></small> "
+            + "            <small class=\"fas fa-star\"></small> "
+            + "        </div> "
+            + "    </div> "
+            + "    <h3 class=\"text-gray-90 font-size-18 mb-2\">_title_placeholder</h3>"
+            + "    <p class=\"text-gray-90\">_message_placeholder</p> "
+            + "    <div class=\"mb-2\"> "
+            + "        <strong>_user_placeholder</strong> "
+            + "        <span class=\"font-size-13 text-gray-23\">- _date_placeholder</span> "
+            + "        <span class=\"font-size-13\" style=\"margin-left: 10px;\">_verified_placeholder</span> "
+            + "    </div> "
+            + "    <div>_date_modified_placeholder</div> "
+            + "</div>";
+
+        $('#review-container').append("<h3 style='text-align:center' class='font-size-16 my-3'>Değerlendirmeler Yükleniyor...</h3>");
+
+                $.ajax({
+                    type: 'GET',
+                    url: '/home/productreview/@Model.Id',
+                    dataType: 'Json',
+                    success: function (data) {
+                        $('#review-container').empty(); // remove existing dom
+
+                        let one = 0, two = 0, three = 0, four = 0, five = 0;
+
+                        if (data.length > 0) {
+                            $.each(data, function (i, item) {
+                                let review = template;
+                                review = review.replace('_user_placeholder', item.username);
+                                review = review.replace('_date_placeholder', item.createdOn);
+                                review = review.replace('_star_placeholder', createStar(item.rating));
+                                review = review.replace('_title_placeholder', item.title);
+                                review = review.replace('_message_placeholder', item.message);
+                                if (item.dateModified !== '1.01.0001 00:00:00')
+                                    review = review.replace('_date_modified_placeholder', '<div class=\"mb-2\"><strong>Son Düzenleme:</strong><span class=\"font-size-13 text-gray-23\" style="margin-left:5px;">' + item.dateModified + '</span></div>');
+                                else
+                                    review = review.replace('_date_modified_placeholder', '');
+                                if (item.isVerifiedOwner)
+                                    review = review.replace('_verified_placeholder', '<span class="text-green" style="margin-right: 2px;"><i class ="fas fa-check"></i></span> Satın aldığı doğrulandı');
+                                else
+                                    review = review.replace('_verified_placeholder', '<span class="text-red" style="margin-right: 2px;"><i class ="fas fa-times"></i></span> Satın aldığı doğrulanmadı');
+                                switch (item.rating) {
+                                    case 1: one++; break;
+                                    case 2: two++; break;
+                                    case 3: three++; break;
+                                    case 4: four++; break;
+                                    case 5: five++; break;
+                                }
+                                $('#review-container').append(review);
+                            });
+                        } else {
+                            $('#review-container').append('<h5 style="text-align: center; padding: 20px;">There are no reviews yet...</div>');
+                        }   
+                    }
+                });
+
+        function createStar(count) {
+            let starTemplate = '';
+            for (i = 0; i < count; i++) {
+                starTemplate += '<small class="fas fa-star"></small> ';
+            }
+            for (i = 0; i < 5 - count; i++) {
+                starTemplate += '<small class="far fa-star text-muted"></small> ';
+            }
+            return starTemplate;
+        };
     });
     </script>
 }

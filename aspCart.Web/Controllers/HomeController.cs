@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using aspCart.Core.Domain.Catalog;
 using aspCart.Core.Interface.Services.Catalog;
 using aspCart.Core.Interface.Services.Sale;
@@ -317,6 +318,38 @@ namespace aspCart.Web.Controllers
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> ProductReview(string id)
+        {
+            var model = new List<ReviewModel>();
+            if (id != null && id.Length > 0)
+            {
+                Guid result = Guid.Empty;
+
+                if (Guid.TryParse(id, out result))
+                {
+                    var reviewEntities = _reviewService.GetReviewsByProductId(result);
+                    if (reviewEntities != null && reviewEntities.Count > 0)
+                    {
+                        foreach (var review in reviewEntities)
+                        {
+                            var r = _mapper.Map<Review, ReviewModel>(review);
+
+                            var user = await _userManager.FindByIdAsync(review.UserId.ToString());
+                            r.Username = user.Name + " " + user.Surname[0] + ".";
+
+                            r.IsVerifiedOwner = _orderService.GetAllOrdersByUserId(review.UserId)
+                                .Where(x => x.Items.Any(a => a.ProductId == result.ToString()) && x.Status == Core.Domain.Sale.OrderStatus.Complete)
+                                .Count() > 0;
+
+                            model.Add(r);
+                        }
+                    }
+                }
+            }
+
+            return Json(model.OrderByDescending(x => x.CreatedOn));
         }
 
         private Guid GetCurrentUserId()
