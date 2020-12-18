@@ -688,14 +688,10 @@
     <script>
     $(function () {
         var template = ""
-            + "<div class=\"border-bottom border-color-1 pb-4 mb-4\"> "
+            + "<div class=\"border-bottom border-color-1 pb-4 mb-4 review-uniq\"> "
             + "    <div class=\"d-flex align-items-center text-secondary font-size-1 mb-2\"> "
             + "        <div class=\"text-warning text-ls-n2 font-size-16\" style=\"width: 80px;\"> "
-            + "            <small class=\"fas fa-star\"></small> "
-            + "            <small class=\"fas fa-star\"></small> "
-            + "            <small class=\"fas fa-star\"></small> "
-            + "            <small class=\"fas fa-star\"></small> "
-            + "            <small class=\"fas fa-star\"></small> "
+            + "            _star_placeholder "
             + "        </div> "
             + "    </div> "
             + "    <h3 class=\"text-gray-90 font-size-18 mb-2\">_title_placeholder</h3>"
@@ -727,7 +723,7 @@
                                 review = review.replace('_star_placeholder', createStar(item.rating));
                                 review = review.replace('_title_placeholder', item.title);
                                 review = review.replace('_message_placeholder', item.message);
-                                if (item.dateModified !== '1.01.0001 00:00:00')
+                                if (item.dateModified !== '01 Ocak 0001')
                                     review = review.replace('_date_modified_placeholder', '<div class=\"mb-2\"><strong>Son Düzenleme:</strong><span class=\"font-size-13 text-gray-23\" style="margin-left:5px;">' + item.dateModified + '</span></div>');
                                 else
                                     review = review.replace('_date_modified_placeholder', '');
@@ -743,10 +739,40 @@
                                     case 5: five++; break;
                                 }
                                 $('#review-container').append(review);
+                                $('.review-uniq')
+                                    .last()
+                                    .removeClass("border-bottom")
+                                    .removeClass("border-color-1");
                             });
                         } else {
-                            $('#review-container').append('<h5 style="text-align: center; padding: 20px;">There are no reviews yet...</div>');
-                        }   
+                            $('#review-container').append('<h3 style="text-align:center" class="font-size-18 my-3">Ürün Değerlendirmesi Bulunmuyor</h3>');
+                        }
+
+                        // set review count and percentage
+                        $('#one-star').empty();
+                        $('#one-star-progress').empty();
+                        $('#one-star').append('%' + one / data.length * 100 + ' (' + one + ')');
+                        $('#one-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(one / data.length * 100) ? 0 : one / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(one / data.length * 100) ? 0 : one / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
+
+                        $('#two-star').empty();
+                        $('#two-star-progress').empty();
+                        $('#two-star').append('%' + two / data.length * 100 + ' (' + two + ')');
+                        $('#two-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(two / data.length * 100) ? 0 : two / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(two / data.length * 100) ? 0 : two / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
+
+                        $('#three-star').empty();
+                        $('#three-star-progress').empty();
+                        $('#three-star').append('%' + three / data.length * 100 + ' (' + three + ')');
+                        $('#three-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(three / data.length * 100) ? 0 : three / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(three / data.length * 100) ? 0 : three / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
+
+                        $('#four-star').empty();
+                        $('#four-star-progress').empty();
+                        $('#four-star').append('%' + four / data.length * 100 + ' (' + four + ')');
+                        $('#four-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(four / data.length * 100) ? 0 : four / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(four / data.length * 100) ? 0 : four / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
+
+                        $('#five-star').empty();
+                        $('#five-star-progress').empty();
+                        $('#five-star').append('%' + five / data.length * 100 + ' (' + five + ')');
+                        $('#five-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(five / data.length * 100) ? 0 : five / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(five / data.length * 100) ? 0 : five / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
                     }
                 });
 
