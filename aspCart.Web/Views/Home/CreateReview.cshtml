@@ -20,7 +20,7 @@
                             <div class="col-md-12">
                                 <!-- Input -->
                                 <div class="js-form-message mb-4">
-                                    <label class="form-label">
+                                    <label class="form-label" style="text-transform:none">
                                         Bu ürüne kaç yıldız verirsiniz?
                                     </label>
                                     <select asp-for="Rating" id="rate-review" style="display:none;">
@@ -36,17 +36,17 @@
                             <div class="col-md-12">
                                 <!-- Input -->
                                 <div class="js-form-message mb-4">
-                                    <label asp-for="Title" class="form-label">
+                                    <label asp-for="Title" class="form-label" style="text-transform:none">
                                         Ürün değerlendirmeniz için başlık
                                     </label>
-                                    <input asp-for="Title" type="text" class="form-control">
+                                    <input asp-for="Title" type="text" class="form-control" autocomplete="off">
                                     <span asp-validation-for="Title" class="d-block text-danger my-2"></span>
                                 </div>
                                 <!-- End Input -->
                             </div>
                             <div class="col-md-12">
                                 <div class="js-form-message mb-4">
-                                    <label asp-for="Message" class="form-label">
+                                    <label asp-for="Message" class="form-label" style="text-transform:none">
                                         Ürün ile ilgili değerlendirmeniz neler?
                                     </label>
                                     <div class="input-group">
