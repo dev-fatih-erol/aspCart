@@ -26,9 +26,7 @@
                         </div>
                     </div>
                     <div class="col-auto mb-2 mb-md-0">
-                        <div id="five-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;">
-                            <div class="progress-bar" role="progressbar" style="width: 100%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <div id="five-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;"></div>
                     </div>
                     <div class="col-auto text-right">
                         <span id="five-star" class="text-gray-90">0</span>
@@ -47,9 +45,7 @@
                         </div>
                     </div>
                     <div class="col-auto mb-2 mb-md-0">
-                        <div id="four-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;">
-                            <div class="progress-bar" role="progressbar" style="width: 53%;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <div id="four-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;"></div>
                     </div>
                     <div class="col-auto text-right">
                         <span id="four-star" class="text-gray-90">0</span>
@@ -68,9 +64,7 @@
                         </div>
                     </div>
                     <div class="col-auto mb-2 mb-md-0">
-                        <div id="three-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;">
-                            <div class="progress-bar" role="progressbar" style="width: 20%;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <div id="three-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;"></div>
                     </div>
                     <div class="col-auto text-right">
                         <span id="three-star" class="text-gray-90">0</span>
@@ -89,9 +83,7 @@
                         </div>
                     </div>
                     <div class="col-auto mb-2 mb-md-0">
-                        <div id="two-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;">
-                            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
+                        <div id="two-star-progress" class="progress ml-xl-5" style="height: 10px; width: 200px;"></div>
                     </div>
                     <div class="col-auto text-right">
                         <span id="two-star" class="text-gray-90">0</span>
@@ -128,7 +120,7 @@
                 reviewText = "Değerlendirmeni Gör";
             }
         }
-        <a asp-controller="Product" asp-action="CreateReview" asp-route-id="@Model.Id" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">@reviewText</a>
+        <a asp-controller="Home" asp-action="CreateReview" asp-route-id="@Model.Id" class="btn btn-soft-secondary-w mb-md-0 font-weight-normal px-5 px-md-4 px-lg-5">@reviewText</a>
     </div>
 </div>
 <div id="review-container"></div>

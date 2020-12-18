@@ -8,6 +8,7 @@ using aspCart.Core.Interface.Services.Sale;
 using aspCart.Infrastructure.EFModels;
 using aspCart.Web.Models;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -350,6 +351,87 @@ namespace aspCart.Web.Controllers
             }
 
             return Json(model.OrderByDescending(x => x.CreatedOn));
+        }
+
+        [Authorize]
+        public IActionResult CreateReview(string id)
+        {
+            if (id != null && id.Length > 0)
+            {
+                Guid result = Guid.Empty;
+                var model = new CreateReviewModel();
+
+                if (Guid.TryParse(id, out result))
+                {
+                    var productEntity = _productService.GetProductById(result);
+                    model.ProductId = productEntity.Id;
+                    model.ProductName = productEntity.Name;
+                    model.ProductSeo = productEntity.SeoUrl;
+                    model.Rating = 1;
+
+                    var userReview = _reviewService.GetReviewByProductIdUserId(result, GetCurrentUserId());
+                    if (userReview != null)
+                    {
+                        model.Title = userReview.Title;
+                        model.Message = userReview.Message;
+                        model.Rating = userReview.Rating;
+                        ViewData["ReviewEdited"] = true;
+                    }
+                }
+
+                return View(model);
+            }
+            return RedirectToAction("Index");
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CreateReview(CreateReviewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var reviewEntity = new Review
+                {
+                    Id = Guid.NewGuid(),
+                    UserId = GetCurrentUserId(),
+                    ProductId = model.ProductId,
+                    Title = model.Title,
+                    Message = model.Message,
+                    Rating = model.Rating,
+                    CreatedOn = DateTime.Now
+                };
+
+                _reviewService.InsertReview(reviewEntity);
+
+                return new RedirectResult("/Product/" + model.ProductSeo + "#!#reviews");
+            }
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditReview(CreateReviewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var reviewEntity = _reviewService.GetReviewByProductIdUserId(model.ProductId, GetCurrentUserId());
+                if (reviewEntity != null)
+                {
+                    reviewEntity.Title = model.Title;
+                    reviewEntity.Message = model.Message;
+                    reviewEntity.Rating = model.Rating;
+                    reviewEntity.DateModified = DateTime.Now;
+
+                    _reviewService.UpdateReview(reviewEntity);
+                }
+
+                return new RedirectResult("/Product/" + model.ProductSeo + "#!#reviews");
+            }
+
+            return View(model);
         }
 
         private Guid GetCurrentUserId()

@@ -1,0 +1,177 @@
+﻿@model CreateReviewModel
+@{
+    ViewData["Title"] = "Write a review";
+}
+
+<main id="content" role="main">
+    <div class="container">
+        <div class="row mb-10 mt-8">
+            <div class="col-md-8 col-xl-9">
+                <div class="mr-xl-6">
+                    <div class="border-bottom border-color-1 mb-5">
+                        <h3 class="section-title mb-0 pb-2 font-size-25">@Model.ProductName için bir değerlendirme yapın</h3>
+                    </div>
+                    <p class="max-width-830-xl text-gray-90">Ürün ile ilgili düşüncelerinizi paylaşarak diğer müşterilere yardımcı olun.</p>
+                    <form id="reviewForm" asp-controller="Home" asp-action="CreateReview" method="post">
+                        <input type="hidden" asp-for="ProductId" />
+                        <input type="hidden" asp-for="ProductName" />
+                        <input type="hidden" asp-for="ProductSeo" />
+                        <div class="row">
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label class="form-label">
+                                        Bu ürüne kaç yıldız verirsiniz?
+                                    </label>
+                                    <select asp-for="Rating" id="rate-review" style="display:none;">
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                    </select>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <!-- Input -->
+                                <div class="js-form-message mb-4">
+                                    <label asp-for="Title" class="form-label">
+                                        Ürün değerlendirmeniz için başlık
+                                    </label>
+                                    <input asp-for="Title" type="text" class="form-control">
+                                    <span asp-validation-for="Title" class="d-block text-danger my-2"></span>
+                                </div>
+                                <!-- End Input -->
+                            </div>
+                            <div class="col-md-12">
+                                <div class="js-form-message mb-4">
+                                    <label asp-for="Message" class="form-label">
+                                        Ürün ile ilgili değerlendirmeniz neler?
+                                    </label>
+                                    <div class="input-group">
+                                        <textarea asp-for="Message" class="form-control p-5" rows="4"></textarea>
+                                    </div>
+                                    <span asp-validation-for="Message" class="d-block text-danger my-2"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            @{
+                                string btnValue = "Yayınla";
+                                if (ViewData["ReviewEdited"] != null && (bool)ViewData["ReviewEdited"])
+                                {
+                                    btnValue = "Güncelle";
+                                }
+                            }
+                            <button type="submit" class="btn btn-primary-dark-w px-5" id="btn-submit">@btnValue</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-4 col-xl-3">
+                <div class="border-bottom border-color-1 mb-5">
+                    <h3 class="section-title mb-0 pb-2 font-size-25">Our Store</h3>
+                </div>
+                <div class="mr-xl-6">
+                    <address class="mb-6">
+                        121 King Street, <br>
+                        Melbourne VIC 3000, <br>
+                        Australia
+                    </address>
+                    <h5 class="font-size-14 font-weight-bold mb-3">Hours of Operation</h5>
+                    <ul class="list-unstyled mb-6">
+                        <li class="flex-center-between mb-1"><span class="">Monday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between mb-1"><span class="">Tuesday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between mb-1"><span class="">Wednesday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between mb-1"><span class="">Thursday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between mb-1"><span class="">Friday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between mb-1"><span class="">Saturday:</span><span class="">12-6 PM</span></li>
+                        <li class="flex-center-between"><span class="">Sunday</span><span class="">Closed</span></li>
+                    </ul>
+                    <h5 class="font-size-14 font-weight-bold mb-3">Careers</h5>
+                    <p class="text-gray-90">If you’re interested in employment opportunities at Electro, please email us: <a class="text-blue text-decoration-on" href="mailto:contact@yourstore.com">contact@yourstore.com</a></p>
+                </div>
+            </div>
+        </div>
+        <!-- Brand Carousel -->
+        <div class="mb-8">
+            <div class="py-2 border-top border-bottom">
+                <div class="js-slick-carousel u-slick my-1"
+                     data-slides-show="5"
+                     data-slides-scroll="1"
+                     data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                     data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                     data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                     data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img1.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img2.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img3.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img4.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img5.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img6.png" alt="Image Description">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Brand Carousel -->
+    </div>
+</main>
+@section Scripts{
+ <script>
+        $(function () {
+            $('#rate-review').barrating({
+                theme: 'fontawesome-stars',
+            });
+            $('#btn-submit').on('click', function (e) {
+                e.preventDefault();
+                let form = $('#reviewForm');
+                let submitBtn = $(this);
+                var result = form.valid();
+                if (result) {
+                    if (submitBtn.text() === 'Güncelle')
+                        form.attr('action', "/Home/EditReview")
+                    form.submit();
+                }
+            });
+        });
+ </script>
+}
