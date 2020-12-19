@@ -1,6 +1,6 @@
 ﻿@model CreateReviewModel
 @{
-    ViewData["Title"] = "Write a review";
+    ViewData["Title"] = "Değerlendirme Yap - OrganikFabrika.com";
 }
 
 <main id="content" role="main">
@@ -146,8 +146,10 @@
                 let submitBtn = $(this);
                 var result = form.valid();
                 if (result) {
-                    if (submitBtn.text() === 'Güncelle')
-                        form.attr('action', "/Home/EditReview")
+                    if (submitBtn.text() === 'Güncelle') {
+                        var action = window.location.pathname.replace("olustur", "duzenle")
+                        form.attr('action', action)
+                    }
                     form.submit();
                 }
             });

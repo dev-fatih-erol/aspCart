@@ -178,9 +178,14 @@ namespace aspCart.Web
                     defaults: new { controller = "Home", action = "ProductSearch" });
 
                 routes.MapControllerRoute(
-                    name: "create review",
-                    pattern: "CreateReview/{id}",
+                    name: "createReview",
+                    pattern: "Urun/{id}/Degerlendirme/Olustur",
                     defaults: new { controller = "Home", action = "CreateReview" });
+
+                routes.MapControllerRoute(
+                    name: "editReview",
+                    pattern: "Urun/{id}/Degerlendirme/Duzenle",
+                    defaults: new { controller = "Home", action = "EditReview" });
 
                 routes.MapControllerRoute(
                     name: "Login",
