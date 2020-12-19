@@ -56,5 +56,6 @@
     <Folder Include="Attributes\" />
     <Folder Include="Extensions\" />
     <Folder Include="Views\Shared\Components\CategoryNavigation\" />
+    <Folder Include="Views\Shared\Components\TopRatedColumn\" />
   </ItemGroup>
 </Project>

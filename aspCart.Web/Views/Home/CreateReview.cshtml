@@ -70,28 +70,7 @@
                 </div>
             </div>
             <div class="col-md-4 col-xl-3">
-                <div class="border-bottom border-color-1 mb-5">
-                    <h3 class="section-title mb-0 pb-2 font-size-25">Our Store</h3>
-                </div>
-                <div class="mr-xl-6">
-                    <address class="mb-6">
-                        121 King Street, <br>
-                        Melbourne VIC 3000, <br>
-                        Australia
-                    </address>
-                    <h5 class="font-size-14 font-weight-bold mb-3">Hours of Operation</h5>
-                    <ul class="list-unstyled mb-6">
-                        <li class="flex-center-between mb-1"><span class="">Monday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between mb-1"><span class="">Tuesday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between mb-1"><span class="">Wednesday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between mb-1"><span class="">Thursday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between mb-1"><span class="">Friday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between mb-1"><span class="">Saturday:</span><span class="">12-6 PM</span></li>
-                        <li class="flex-center-between"><span class="">Sunday</span><span class="">Closed</span></li>
-                    </ul>
-                    <h5 class="font-size-14 font-weight-bold mb-3">Careers</h5>
-                    <p class="text-gray-90">If you’re interested in employment opportunities at Electro, please email us: <a class="text-blue text-decoration-on" href="mailto:contact@yourstore.com">contact@yourstore.com</a></p>
-                </div>
+                @await Component.InvokeAsync("TopRatedColumn")
             </div>
         </div>
         <!-- Brand Carousel -->
