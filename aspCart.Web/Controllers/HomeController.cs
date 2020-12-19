@@ -404,7 +404,7 @@ namespace aspCart.Web.Controllers
 
                 _reviewService.InsertReview(reviewEntity);
 
-                return new RedirectResult("/Product/" + model.ProductSeo + "#!#reviews");
+                return RedirectToAction("ProductInfo", "Home", new { seo = model.ProductSeo }, "Reviews");
             }
 
             return View(model);
@@ -428,7 +428,7 @@ namespace aspCart.Web.Controllers
                     _reviewService.UpdateReview(reviewEntity);
                 }
 
-                return new RedirectResult("/Product/" + model.ProductSeo + "#!#reviews");
+                return RedirectToAction("ProductInfo", "Home", new { seo = model.ProductSeo }, "Reviews");
             }
 
             return View(model);

@@ -18,11 +18,11 @@ namespace aspCart.Web.Models
         public string ProductSeo { get; set; }
 
         [Required(ErrorMessage = "Lütfen başlık girin.")]
-        [MinLength(5, ErrorMessage = "Lütfen daha uzun başlık girmeyi deneyin.")]
+        [MinLength(10, ErrorMessage = "Lütfen daha uzun başlık girmeyi deneyin.")]
         public string Title { get; set; }
 
         [Required(ErrorMessage = "Lütfen değerlendirme girin.")]
-        [MinLength(5, ErrorMessage = "Lütfen daha uzun değerlendirme girmeyi deneyin.")]
+        [MinLength(20, ErrorMessage = "Lütfen daha uzun değerlendirme girmeyi deneyin.")]
         public string Message { get; set; }
 
         [Required]

@@ -751,27 +751,27 @@
                         // set review count and percentage
                         $('#one-star').empty();
                         $('#one-star-progress').empty();
-                        $('#one-star').append('%' + one / data.length * 100 + ' (' + one + ')');
+                        $('#one-star').append("%" + (isNaN(one / data.length * 100) ? 0 : one / data.length * 100) + ' (' + one + ')');
                         $('#one-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(one / data.length * 100) ? 0 : one / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(one / data.length * 100) ? 0 : one / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
 
                         $('#two-star').empty();
                         $('#two-star-progress').empty();
-                        $('#two-star').append('%' + two / data.length * 100 + ' (' + two + ')');
+                        $('#two-star').append("%" + (isNaN(two / data.length * 100) ? 0 : two / data.length * 100) + ' (' + two + ')');
                         $('#two-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(two / data.length * 100) ? 0 : two / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(two / data.length * 100) ? 0 : two / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
 
                         $('#three-star').empty();
                         $('#three-star-progress').empty();
-                        $('#three-star').append('%' + three / data.length * 100 + ' (' + three + ')');
+                        $('#three-star').append("%" + (isNaN(three / data.length * 100) ? 0 : three / data.length * 100) + ' (' + three + ')');
                         $('#three-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(three / data.length * 100) ? 0 : three / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(three / data.length * 100) ? 0 : three / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
 
                         $('#four-star').empty();
                         $('#four-star-progress').empty();
-                        $('#four-star').append('%' + four / data.length * 100 + ' (' + four + ')');
+                        $('#four-star').append("%" + (isNaN(four / data.length * 100) ? 0 : four / data.length * 100) + ' (' + four + ')');
                         $('#four-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(four / data.length * 100) ? 0 : four / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(four / data.length * 100) ? 0 : four / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
 
                         $('#five-star').empty();
                         $('#five-star-progress').empty();
-                        $('#five-star').append('%' + five / data.length * 100 + ' (' + five + ')');
+                        $('#five-star').append("%" + (isNaN(five / data.length * 100) ? 0 : five / data.length * 100) + ' (' + five + ')');
                         $('#five-star-progress').append("<div class=\"progress-bar\" role=\"progressbar\" style=\"width: " + '' + (isNaN(five / data.length * 100) ? 0 : five / data.length * 100) + '%' + ";\" aria-valuenow=\"" + (isNaN(five / data.length * 100) ? 0 : five / data.length * 100) + "\" aria-valuemin=\"0\" aria-valuemax=\"100\"></div>");
                     }
                 });
