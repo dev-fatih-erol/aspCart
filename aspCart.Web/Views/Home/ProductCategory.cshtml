@@ -39,7 +39,7 @@
                                     <!-- Menu List -->
                                     @foreach (var categoryItem in categories)
                                     {
-                                        <li><a class="dropdown-item" href="#">@categoryItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@categoryItem.ProductCount)</span></a></li>
+                                        <li><a class="dropdown-item" asp-route-category="@categoryItem.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@categoryItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@categoryItem.ProductCount)</span></a></li>
                                     }
                                     <li><a class="dropdown-item" href="#">Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a></li>
                                     <li><a class="dropdown-item" href="#">Cameras & Photography<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
@@ -56,7 +56,7 @@
                             </div>
                         </li>
                         <li>
-                            <a class="dropdown-current active" href="#">@category.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@Model.Count())</span></a>
+                            <a class="dropdown-current active" asp-route-category="@category.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@category.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@Model.Count())</span></a>
 
                             <ul class="list-unstyled dropdown-list">
                                 <!-- Menu List -->
