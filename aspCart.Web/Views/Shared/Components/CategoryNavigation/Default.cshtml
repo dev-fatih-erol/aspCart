@@ -4,7 +4,7 @@
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-action="Index" asp-controller="Home">Anasayfa</a></li>
         @foreach (var category in Model)
         {
-            <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="/@category.SeoUrl">@category.Name</a></li>
+            <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-route-category="@category.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@category.Name</a></li>
         }
         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">@ViewBag.ProductName</li>
     </ol>

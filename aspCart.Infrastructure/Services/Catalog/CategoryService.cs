@@ -83,7 +83,7 @@ namespace aspCart.Infrastructure.Services.Catalog
             if (seo == "")
                 return null;
 
-            return _categoryRepository.FindByExpression(x => x.SeoUrl == seo);
+            return _categoryRepository.FindByExpression(x => x.SeoUrl.ToLower() == seo.ToLower());
         }
 
         /// <summary>

@@ -18,6 +18,7 @@ namespace aspCart.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOrderService _orderService;
+        private readonly ICategoryService _categoryService;
         private readonly IProductService _productService;
         private readonly IReviewService _reviewService;
         private readonly IMapper _mapper;
@@ -25,12 +26,14 @@ namespace aspCart.Web.Controllers
         public HomeController(
             UserManager<ApplicationUser> userManager,
             IOrderService orderService,
+            ICategoryService categoryService,
             IProductService productService,
             IReviewService reviewService,
             IMapper mapper)
         {
             _userManager = userManager;
             _orderService = orderService;
+            _categoryService = categoryService;
             _productService = productService;
             _reviewService = reviewService;
             _mapper = mapper;
@@ -227,7 +230,7 @@ namespace aspCart.Web.Controllers
                 // get all filters to recheck all filters in view
                 var allFilters = manufacturer.Concat(price).ToList();
                 ViewData["SortKey"] = allFilters;
-                ViewData["Category"] = category;
+                ViewData["Category"] = _categoryService.GetCategoryBySeo(category);
 
                 return View(productList);
             }
