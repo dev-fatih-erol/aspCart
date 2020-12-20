@@ -9,5 +9,6 @@ namespace aspCart.Web.Models
     {
         public string Name { get; set; }
         public string SeoUrl { get; set; }
+        public int ProductCount { get; set; }
     }
 }

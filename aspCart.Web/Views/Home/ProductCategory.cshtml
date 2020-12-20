@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<ProductModel>
 @{
     var category = (Category)ViewData["Category"];
+    var categories = (List<CategoryModel>)ViewData["Categories"];
     ViewData["Title"] = category.MetaTitle ?? category.Name + " - " + "OrganikFabrika.com";
 }
 
@@ -36,6 +37,10 @@
                             <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                                 <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                     <!-- Menu List -->
+                                    @foreach (var categoryItem in categories)
+                                    {
+                                        <li><a class="dropdown-item" href="#">@categoryItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@categoryItem.ProductCount)</span></a></li>
+                                    }
                                     <li><a class="dropdown-item" href="#">Accessories<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a></li>
                                     <li><a class="dropdown-item" href="#">Cameras & Photography<span class="text-gray-25 font-size-12 font-weight-normal"> (11)</span></a></li>
                                     <li><a class="dropdown-item" href="#">Computer Components<span class="text-gray-25 font-size-12 font-weight-normal"> (22)</span></a></li>
@@ -367,7 +372,7 @@
                 <!-- Shop-control-bar Title -->
                 <div class="d-block d-md-flex flex-center-between mb-3">
                     <h3 class="font-size-25 mb-2 mb-md-0">@category.Name</h3>
-                    <p class="font-size-14 text-gray-90 mb-0"><strong>@category.Name</strong> için <strong>@Model.Count()</strong> sonuç gösteriliyor.</p>
+                    <p class="font-size-14 text-gray-90 mb-0"><strong>1</strong> ile <strong>@Model.Count()</strong> arası sonuçlar gösteriliyor</p>
                 </div>
                 <!-- End shop-control-bar Title -->
                 <!-- Shop-control-bar -->
@@ -2534,7 +2539,7 @@
                 <!-- End Shop Body -->
                 <!-- Shop Pagination -->
                 <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                    <div class="text-center text-md-left mb-3 mb-md-0"><strong>@category.Name</strong> için <strong>@Model.Count()</strong> sonuç gösteriliyor.</div>
+                    <div class="text-center text-md-left mb-3 mb-md-0"><strong>1</strong> ile <strong>@Model.Count()</strong> arası sonuçlar gösteriliyor</div>
                 </nav>
                 <!-- End Shop Pagination -->
             </div>

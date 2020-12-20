@@ -232,6 +232,19 @@ namespace aspCart.Web.Controllers
                 ViewData["SortKey"] = allFilters;
                 ViewData["Category"] = _categoryService.GetCategoryBySeo(category);
 
+                var categories = new List<CategoryModel>();
+                foreach (var categoryItem in _categoryService.GetAllCategoriesWithoutParent())
+                {
+                    var count = _productService.Table().Where(x => x.Categories.Any(c => c.CategoryId == categoryItem.Id)).Count();
+                    categories.Add(new CategoryModel
+                    {
+                        Name = categoryItem.Name,
+                        SeoUrl = categoryItem.SeoUrl,
+                        ProductCount = count
+                    });
+                }
+                ViewData["Categories"] = categories;
+
                 return View(productList);
             }
 
