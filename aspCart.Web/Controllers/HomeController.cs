@@ -6,6 +6,7 @@ using aspCart.Core.Domain.Catalog;
 using aspCart.Core.Interface.Services.Catalog;
 using aspCart.Core.Interface.Services.Sale;
 using aspCart.Infrastructure.EFModels;
+using aspCart.Web.Extensions;
 using aspCart.Web.Models;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -230,20 +231,41 @@ namespace aspCart.Web.Controllers
                 // get all filters to recheck all filters in view
                 var allFilters = manufacturer.Concat(price).ToList();
                 ViewData["SortKey"] = allFilters;
-                ViewData["Category"] = _categoryService.GetCategoryBySeo(category);
+
+                var currentCategory = _categoryService.GetCategoryBySeo(category);
+                ViewData["Category"] = currentCategory;
 
                 var categories = new List<CategoryModel>();
                 foreach (var categoryItem in _categoryService.GetAllCategoriesWithoutParent())
                 {
-                    var count = _productService.Table().Where(x => x.Categories.Any(c => c.CategoryId == categoryItem.Id)).Count();
                     categories.Add(new CategoryModel
                     {
                         Name = categoryItem.Name,
                         SeoUrl = categoryItem.SeoUrl,
-                        ProductCount = count
+                        ProductCount = _productService.Table()
+                                                      .Where(x => x.Categories
+                                                      .Any(c => c.CategoryId == categoryItem.Id))
+                                                      .Count()
                     });
                 }
                 ViewData["Categories"] = categories;
+
+                var allCategories = _categoryService.GetAllCategories();
+
+                var current = allCategories.Where(c => c.Id == currentCategory.Id).Single();
+
+                var parents = allCategories
+                    .Parents(current, x => x.Id, x => x.ParentCategoryId)
+                    .Reverse<Category>()
+                    .ToList();
+
+                parents.Add(current);
+
+                ViewData["CategoryNavigation"] = parents.Select(x => new CategoryModel
+                {
+                    Name = x.Name,
+                    SeoUrl = x.SeoUrl
+                }).ToList();
 
                 return View(productList);
             }

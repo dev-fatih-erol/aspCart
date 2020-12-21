@@ -2,6 +2,7 @@
 @{
     var category = (Category)ViewData["Category"];
     var categories = (List<CategoryModel>)ViewData["Categories"];
+    var categoryNavigation = (List<CategoryModel>)ViewData["CategoryNavigation"];
     ViewData["Title"] = category.MetaTitle ?? category.Name + " - " + "OrganikFabrika.com";
 }
 
@@ -14,7 +15,18 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
                         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-action="Index" asp-controller="Home">Anasayfa</a></li>
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">@category.Name</li>
+                        @foreach (var categoryItem in categoryNavigation)
+                        {
+                            var lastCategory = categoryNavigation[categoryNavigation.Count - 1];
+                            if (categoryItem.Equals(lastCategory))
+                            {
+                                <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">@categoryItem.Name</li>
+                            }
+                            else
+                            {
+                                <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-route-category="@categoryItem.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@categoryItem.Name</a></li>
+                            }
+                        }
                     </ol>
                 </nav>
             </div>
