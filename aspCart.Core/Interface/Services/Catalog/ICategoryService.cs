@@ -65,5 +65,11 @@ namespace aspCart.Core.Interface.Services.Catalog
         void DeleteAllProductCategoryMappingsByProductId(Guid productId);
 
         Category GetByName(string name);
+
+        /// <summary>
+        /// Get category context table
+        /// </summary>
+        /// <returns></returns>
+        IQueryable<Category> Table();
     }
 }

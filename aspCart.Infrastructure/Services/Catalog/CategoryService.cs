@@ -164,6 +164,15 @@ namespace aspCart.Infrastructure.Services.Catalog
             return _categoryRepository.FindByExpression(x => x.Name == name);
         }
 
+        /// <summary>
+        /// Get product context table
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Category> Table()
+        {
+            return _context.Categories;
+        }
+
         #endregion
     }
 }

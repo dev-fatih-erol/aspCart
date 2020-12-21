@@ -267,6 +267,21 @@ namespace aspCart.Web.Controllers
                     SeoUrl = x.SeoUrl
                 }).ToList();
 
+                var subCategories = new List<CategoryModel>();
+                foreach (var categoryItem in _categoryService.Table().Where(c => c.ParentCategoryId == currentCategory.Id).ToList())
+                {
+                    subCategories.Add(new CategoryModel
+                    {
+                        Name = categoryItem.Name,
+                        SeoUrl = categoryItem.SeoUrl,
+                        ProductCount = _productService.Table()
+                                                      .Where(x => x.Categories
+                                                      .Any(c => c.CategoryId == categoryItem.Id))
+                                                      .Count()
+                    });
+                }
+                ViewData["SubCategories"] = subCategories;
+
                 return View(productList);
             }
 

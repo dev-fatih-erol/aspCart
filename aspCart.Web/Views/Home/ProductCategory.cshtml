@@ -3,6 +3,7 @@
     var category = (Category)ViewData["Category"];
     var categories = (List<CategoryModel>)ViewData["Categories"];
     var categoryNavigation = (List<CategoryModel>)ViewData["CategoryNavigation"];
+    var subCategories = (List<CategoryModel>)ViewData["SubCategories"];
     ViewData["Title"] = category.MetaTitle ?? category.Name + " - " + "OrganikFabrika.com";
 }
 
@@ -68,14 +69,18 @@
                             </div>
                         </li>
                         <li>
-                            <a class="dropdown-current active" asp-route-category="@category.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@category.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@Model.Count())</span></a>
-
-                            <ul class="list-unstyled dropdown-list">
-                                <!-- Menu List -->
-                                <li><a class="dropdown-item" href="#">Smartphones<span class="text-gray-25 font-size-12 font-weight-normal"> (30)</span></a></li>
-                                <li><a class="dropdown-item" href="#">Tablets<span class="text-gray-25 font-size-12 font-weight-normal"> (20)</span></a></li>
-                                <!-- End Menu List -->
-                            </ul>
+                            <a class="dropdown-current active" style="@(subCategories.Count == 0 ? Html.Raw("border-bottom:none") : Html.Raw(""))" asp-route-category="@category.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@category.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@Model.Count())</span></a>
+                            @if (subCategories.Count > 0)
+                            {
+                                <ul class="list-unstyled dropdown-list">
+                                    <!-- Menu List -->
+                                    @foreach (var categoryItem in subCategories)
+                                    {
+                                        <li><a class="dropdown-item" asp-route-category="@categoryItem.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@categoryItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@categoryItem.ProductCount)</span></a></li>
+                                    }
+                                    <!-- End Menu List -->
+                                </ul>
+                            }
                         </li>
                     </ul>
                     <!-- End List -->
