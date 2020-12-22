@@ -191,6 +191,10 @@ namespace aspCart.Web.Controllers
                 {
                     var productModel = _mapper.Map<Product, ProductModel>(product);
 
+                    productModel.Categories = product.Categories
+                        .Select(x => new CategoryModel { Name = x.Category.Name, SeoUrl = x.Category.SeoUrl })
+                        .ToList();
+
                     // get image
                     if (product.Images.Count > 0)
                     {
@@ -199,6 +203,13 @@ namespace aspCart.Web.Controllers
                             .ThenBy(x => x.Position)
                             .FirstOrDefault()
                             .Image.FileName;
+                    }
+
+                    // check for discount
+                    if (product.SpecialPriceEndDate != null && product.SpecialPriceEndDate >= DateTime.Now)
+                    {
+                        productModel.OldPrice = product.Price;
+                        productModel.Price = product.SpecialPrice ?? productModel.OldPrice;
                     }
 
                     // get manufacturer
