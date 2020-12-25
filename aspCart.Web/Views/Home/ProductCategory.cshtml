@@ -2086,16 +2086,8 @@
                                                 </div>
                                                 <div class="product-item__footer col-md-3 d-md-block">
                                                     <div class="mb-3">
-                                                        <div class="prodcut-price mb-2 mt-auto @((product.OldPrice > 0) ? "flex-horizontal-center": "")">
-                                                            @if (product.OldPrice > 0)
-                                                            {
-                                                                <ins class="font-size-20 text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
-                                                                <del class="font-size-12 text-gray-6 ml-2">@product.OldPrice.ToString("N2") TL</del>
-                                                            }
-                                                            else
-                                                            {
-                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
-                                                            }
+                                                        <div class="prodcut-price mb-2">
+                                                            <div class="text-gray-100">$685,00</div>
                                                         </div>
                                                         <div class="prodcut-add-cart">
                                                             <a href="../shop/single-product-fullwidth.html" class="btn btn-sm btn-block btn-primary-dark btn-wide transition-3d-hover">Sepete Ekle</a>
@@ -2416,6 +2408,72 @@
                         </div>
                         <div class="tab-pane fade pt-2" id="pills-four-example1" role="tabpanel" aria-labelledby="pills-four-example1-tab" data-target-group="groups">
                             <ul class="d-block list-unstyled products-group prodcut-list-view-small">
+                                @foreach (var product in Model)
+                                {
+                                    <li class="product-item remove-divider">
+                                    <div class="product-item__outer w-100">
+                                        <div class="product-item__inner remove-prodcut-hover py-4 row">
+                                            <div class="product-item__header col-6 col-md-2">
+                                                <div class="mb-2">
+                                                    <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img9.jpg" alt="@product.Name"></a>
+                                                </div>
+                                            </div>
+                                            <div class="product-item__body col-6 col-md-7">
+                                                <div class="pr-lg-10">
+                                                    <div class="mb-2"><a asp-route-category="@product.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5">@product.Categories.First().Name</a></div>
+                                                    <h5 class="mb-2 product-item__title"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                                                    <div class="prodcut-price d-md-none">
+                                                        <div class="text-gray-100">$685,00</div>
+                                                    </div>
+                                                    <ul class="font-size-12 p-0 text-gray-110 mb-4 d-none d-md-block">
+                                                        <li class="line-clamp-1 mb-1 list-bullet">Brand new and high quality</li>
+                                                        <li class="line-clamp-1 mb-1 list-bullet">Made of supreme quality, durable EVA crush resistant, anti-shock material.</li>
+                                                        <li class="line-clamp-1 mb-1 list-bullet">20 MP Electro and 28 megapixel CMOS rear camera</li>
+                                                    </ul>
+                                                    @if (product.Rating > 0)
+                                                    {
+                                                        <div class="mb-3 d-none d-md-block">
+                                                            <div class="d-inline-flex align-items-center small font-size-14">
+                                                                <div class="text-warning mr-2">
+                                                                    @{ int activeStar = 0;
+                                                                        int roundedRating = Convert.ToInt32(Math.Round(product.Rating, 0, MidpointRounding.AwayFromZero)); }
+                                                                    @for (int i = 0; i < roundedRating; i++)
+                                                                    {
+                                                                        <small class="fas fa-star"></small>activeStar++;
+                                                                    }
+                                                                    @for (int i = 0; i < 5 - activeStar; i++)
+                                                                    {
+                                                                        <small class="far fa-star text-muted"></small>
+                                                                    }
+                                                                </div>
+                                                                <span class="text-secondary">(@product.Rating.ToString("N1"))</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="mb-3 d-none d-md-block">
+                                                            <div class="d-inline-flex align-items-center small font-size-14">
+                                                                <span class="text-secondary font-size-13">Henüz Değerlendirilmemiş</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="product-item__footer col-md-3 d-md-block">
+                                                <div class="mb-2 flex-center-between">
+                                                    <div class="prodcut-price">
+                                                        <div class="text-gray-100">$685,00</div>
+                                                    </div>
+                                                    <div class="prodcut-add-cart">
+                                                        <a href="../shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                }
                                 <li class="product-item remove-divider">
                                     <div class="product-item__outer w-100">
                                         <div class="product-item__inner remove-prodcut-hover py-4 row">
