@@ -21,7 +21,7 @@
                                     @if (product.OldPrice > 0)
                                     {
                                         <ins class="font-size-20 text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
-                                        <del class="font-size-12 tex-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
+                                        <del class="font-size-12 text-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
                                     }
                                     else
                                     {
