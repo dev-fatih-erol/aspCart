@@ -293,6 +293,21 @@ namespace aspCart.Web.Controllers
                 }
                 ViewData["SubCategories"] = subCategories;
 
+                /// Start silinecek 
+                var proc = productList.Take(3).ToList();
+                productList.AddRange(proc);
+                var proc1 = productList.Take(3).ToList();
+                productList.AddRange(proc1);
+                var proc2 = productList.Take(3).ToList();
+                productList.AddRange(proc2);
+                var proc3 = productList.Take(3).ToList();
+                productList.AddRange(proc3);
+                var proc4 = productList.Take(3).ToList();
+                productList.AddRange(proc4);
+
+                var proc5 = productList.Take(10).ToList();
+                productList.AddRange(proc5);
+                /// End silinecek
                 return View(productList);
             }
 
