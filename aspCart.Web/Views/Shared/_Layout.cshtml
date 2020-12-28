@@ -20,6 +20,7 @@
 
     <link rel="stylesheet" href="/assets/vendor/animate.css/animate.min.css">
     <link rel="stylesheet" href="/assets/vendor/hs-megamenu/src/hs.megamenu.css">
+    <link rel="stylesheet" href="/assets/vendor/ion-rangeslider/css/ion.rangeSlider.css">
     <link rel="stylesheet" href="/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
     <link rel="stylesheet" href="/assets/vendor/fancybox/jquery.fancybox.css">
     <link rel="stylesheet" href="/assets/vendor/slick-carousel/slick/slick.css">
@@ -649,8 +650,10 @@
     <script src="/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="/assets/vendor/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="/assets/vendor/fancybox/jquery.fancybox.min.js"></script>
+    <script src="/assets/vendor/ion-rangeslider/js/ion.rangeSlider.min.js"></script>
     <script src="/assets/vendor/typed.js/lib/typed.min.js"></script>
     <script src="/assets/vendor/slick-carousel/slick/slick.js"></script>
+    <script src="/assets/vendor/appear.js"></script>
     <script src="/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 
     <!-- JS Electro -->
@@ -665,8 +668,11 @@
     <script src="/assets/js/components/hs.fancybox.js"></script>
     <script src="/assets/js/components/hs.onscroll-animation.js"></script>
     <script src="/assets/js/components/hs.slick-carousel.js"></script>
+    <script src="/assets/js/components/hs.quantity-counter.js"></script>
+    <script src="/assets/js/components/hs.range-slider.js"></script>
     <script src="/assets/js/components/hs.show-animation.js"></script>
     <script src="/assets/js/components/hs.svg-injector.js"></script>
+    <script src="/assets/js/components/hs.scroll-nav.js"></script>
     <script src="/assets/js/components/hs.go-to.js"></script>
     <script src="/assets/js/components/hs.selectpicker.js"></script>
     <script src="/assets/js/jquery.barrating.min.js"></script>
@@ -679,12 +685,9 @@
                 event: 'hover',
                 direction: 'horizontal',
                 pageContainer: $('.container'),
-                breakpoint: 1199.98,
+                breakpoint: 767.98,
                 hideTimeOut: 0
             });
-
-            // initialization of svg injector module
-            $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
         });
 
         $(document).on('ready', function () {
@@ -700,6 +703,14 @@
                     $(this).find('input[type="search"]').focus();
                 }
             });
+
+            // initialization of HSScrollNav component
+            $.HSCore.components.HSScrollNav.init($('.js-scroll-nav'), {
+                duration: 700
+            });
+
+            // initialization of quantity counter
+            $.HSCore.components.HSQantityCounter.init('.js-quantity');
 
             // initialization of popups
             $.HSCore.components.HSFancyBox.init('.js-fancybox');
@@ -728,6 +739,9 @@
                     }
                 }
             });
+
+            // initialization of forms
+            $.HSCore.components.HSRangeSlider.init('.js-range-slider');
 
             // initialization of show animations
             $.HSCore.components.HSShowAnimation.init('.js-animation-link');
