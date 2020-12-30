@@ -1,15 +1,15 @@
 ﻿@model FilterViewModel
 
-@{ 
+@{
     var formController = "";
     var formAction = "";
 
-    if(Model.FilterType == "name")
+    if (Model.FilterType == "name")
     {
         formController = "Home";
         formAction = "ProductSearch";
     }
-    if(Model.FilterType == "manufacturer")
+    if (Model.FilterType == "manufacturer")
     {
         formController = "Home";
         formAction = "ProductManufacturer";
@@ -20,69 +20,54 @@
         formAction = "ProductCategory";
     }
 }
-
-<h5>Item filter</h5><br />
-<form id="filterForm" asp-area="" asp-controller="@formController" asp-action="@formAction" method="get">
+<div class="border-bottom border-color-1 mb-5">
+    <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Popüler Filtreler</h3>
+</div>
+<form id="filterForm" asp-controller="@formController" asp-action="@formAction" method="get">
     @if (Model.ManufacturerFilterViewModel.Count > 0)
     {
-        <h6>Manufacturer</h6> <!-- category filter -->
-        <hr />
-        @foreach (var manufacturer in Model.ManufacturerFilterViewModel)
-        {
-            string labelVaue = $"{manufacturer.Name} ({manufacturer.Quantity})";
-
-            <div>
-                <input type="checkbox" id="@manufacturer.Name" name="marka" value="@manufacturer.SeoUrl" />
-                <label for="@manufacturer.Name">@labelVaue</label>
-            </div>
-        }
-        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
-
-        <br /><br />
+        <div class="border-bottom pb-4 mb-4">
+            <h4 class="font-size-14 mb-3 font-weight-bold">Yöre</h4>
+            <!-- Checkboxes -->
+            @foreach (var manufacturer in Model.ManufacturerFilterViewModel)
+            {
+                <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="@manufacturer.SeoUrl" name="marka" value="@manufacturer.SeoUrl" class="custom-control-input">
+                        <label class="custom-control-label" for="@manufacturer.SeoUrl">
+                            @manufacturer.Name
+                            <span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturer.Quantity)</span>
+                        </label>
+                    </div>
+                </div>
+            }
+            <!-- End Checkboxes -->
+        </div>
     }
-
-    @if(Model.FilterType == "name")
-    {
-        <input type="hidden" name="name" value="@ViewData["name"]" />
-    }
-    @if (Model.CategoryFilterViewModel.Count > 0)
-    {
-        <h6>Category</h6> <!-- category filter -->
-        <hr />
-        @foreach (var category in Model.CategoryFilterViewModel)
-        {
-            string labelVaue = $"{category.Name} ({category.Quantity})";
-
-            <div>
-                <input type="checkbox" id="@category.Name" name="kategori" value="@category.SeoUrl" />
-                <label for="@category.Name">@labelVaue</label>
-            </div>
-        }
-        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
-
-        <br /><br />
-    }
-
     @if (Model.PriceGroupings.Count() > 0)
     {
-        <h6>Price</h6> <!-- price filter -->
-        <hr />
-        @foreach (var g in Model.PriceGroupings)
-        {
-            int keyIndex = Model.PriceRange.IndexOf(g.Key);
-            int prevIndex = keyIndex - (keyIndex == 0 ? 0 : 1);
-            string minPrice = Model.PriceRange[prevIndex].ToString();
-            string maxPrice = g.Key.ToString();
-            string labelValue = $"{minPrice} - {maxPrice} ({g.Count()})";
+        <div class="border-bottom pb-4 mb-4">
+            <h4 class="font-size-14 mb-3 font-weight-bold">Fiyat</h4>
+            <!-- Checkboxes -->
+            @foreach (var g in Model.PriceGroupings)
+            {
+                int keyIndex = Model.PriceRange.IndexOf(g.Key);
+                int prevIndex = keyIndex - (keyIndex == 0 ? 0 : 1);
+                string minPrice = Model.PriceRange[prevIndex].ToString();
+                string maxPrice = g.Key.ToString();
 
-            <div>
-                <input type="checkbox" id="@minPrice-@maxPrice" name="fiyat" value="@minPrice-@maxPrice" />
-                <label for="@minPrice-@maxPrice">@labelValue</label>
-            </div>
-        }
-        <button type="submit" class="btn btn-sm btn-primary">Apply</button>
-
-        <br /><br />
-    }  
-    <input type="hidden" id="sortByFilter" name="siralama" value="varsayilan" />
+                <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="@minPrice-@maxPrice" name="fiyat" value="@minPrice-@maxPrice" class="custom-control-input">
+                        <label class="custom-control-label" for="@minPrice-@maxPrice">@minPrice TL - @maxPrice TL <span class="text-gray-25 font-size-12 font-weight-normal"> (@g.Count())</span></label>
+                    </div>
+                </div>
+            }
+            <!-- End Checkboxes -->
+        </div>
+    }
+    <div>
+        <button type="submit" class="btn px-4 btn-primary-dark-w py-2 rounded-lg">Filtrele</button>
+        <input type="hidden" id="sortByFilter" name="siralama" value="varsayilan" />
+    </div>
 </form>
