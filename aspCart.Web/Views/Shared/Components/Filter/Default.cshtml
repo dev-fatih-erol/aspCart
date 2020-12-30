@@ -27,17 +27,15 @@
     @if (Model.ManufacturerFilterViewModel.Count > 0)
     {
         <div class="border-bottom pb-4 mb-4">
-            <h4 class="font-size-14 mb-3 font-weight-bold">Yöre</h4>
+            <h4 class="font-size-14 mb-3 font-weight-bold">Şehir</h4>
             <!-- Checkboxes -->
             @foreach (var manufacturer in Model.ManufacturerFilterViewModel)
             {
                 <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" id="@manufacturer.SeoUrl" name="marka" value="@manufacturer.SeoUrl" class="custom-control-input">
-                        <label class="custom-control-label" for="@manufacturer.SeoUrl">
-                            @manufacturer.Name
-                            <span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturer.Quantity)</span>
-                        </label>
+                        <label class="custom-control-label" for="@manufacturer.SeoUrl">@manufacturer.Name</label>
+                        <span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturer.Quantity)</span>
                     </div>
                 </div>
             }
@@ -59,7 +57,8 @@
                 <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" id="@minPrice-@maxPrice" name="fiyat" value="@minPrice-@maxPrice" class="custom-control-input">
-                        <label class="custom-control-label" for="@minPrice-@maxPrice">@minPrice TL - @maxPrice TL <span class="text-gray-25 font-size-12 font-weight-normal"> (@g.Count())</span></label>
+                        <label class="custom-control-label" for="@minPrice-@maxPrice">@minPrice TL - @maxPrice TL</label>
+                        <span class="text-gray-25 font-size-12 font-weight-normal"> (@g.Count())</span>
                     </div>
                 </div>
             }
