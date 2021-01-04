@@ -1473,7 +1473,10 @@
     // recheck all selected filters
     $(function () {
         let sortKey = @Json.Serialize(ViewData["SortKey"]);
-        $.each(sortKey, function(index, value){
+        $("input[id*='-Web']").removeAttr('checked');
+        $("input[id*='-Mobile']").removeAttr('checked');
+        $.each(sortKey, function (index, value) {
+            console.log(value)
             $("[id='" + value + "-Web']").prop('checked', true);
             $("[id='" + value + "-Mobile']").prop('checked', true);
             var text = $("[id='" + value + "-Web']").next('label').text();
