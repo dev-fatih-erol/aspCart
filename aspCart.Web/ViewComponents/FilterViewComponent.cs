@@ -36,7 +36,7 @@ namespace aspCart.Web.ViewComponents
 
         #region Methods
 
-        public IViewComponentResult Invoke(string nameFilter = "", string categoryFilter = "", string manufacturerFilter = "" )
+        public IViewComponentResult Invoke(string formClass, string nameFilter = "", string categoryFilter = "", string manufacturerFilter = "")
         {
             //
             // category filter
@@ -169,6 +169,7 @@ namespace aspCart.Web.ViewComponents
 
             if (categoryFilter.Length > 0) { result.FilterType = "category"; }
 
+            ViewBag.FormClass = formClass;
             return View(result);
         }
 

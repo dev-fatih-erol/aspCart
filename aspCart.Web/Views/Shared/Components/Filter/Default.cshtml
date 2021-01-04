@@ -19,6 +19,8 @@
         formController = "Home";
         formAction = "ProductCategory";
     }
+
+    var formClass = ViewBag.FormClass;
 }
 <div class="border-bottom border-color-1 mb-5">
     <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Popüler Filtreler</h3>
@@ -33,8 +35,8 @@
             {
                 <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" id="@manufacturer.SeoUrl" name="marka" value="@manufacturer.SeoUrl" class="custom-control-input">
-                        <label class="custom-control-label" for="@manufacturer.SeoUrl">@manufacturer.Name</label>
+                        <input type="checkbox" id="@manufacturer.SeoUrl-@formClass" name="marka" value="@manufacturer.SeoUrl" class="custom-control-input">
+                        <label class="custom-control-label" for="@manufacturer.SeoUrl-@formClass">@manufacturer.Name</label>
                         <span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturer.Quantity)</span>
                     </div>
                 </div>
@@ -56,8 +58,8 @@
 
                 <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" id="@minPrice-@maxPrice" name="fiyat" value="@minPrice-@maxPrice" class="custom-control-input">
-                        <label class="custom-control-label" for="@minPrice-@maxPrice">@minPrice TL - @maxPrice TL</label>
+                        <input type="checkbox" id="@minPrice-@maxPrice-@formClass" name="fiyat" value="@minPrice-@maxPrice" class="custom-control-input">
+                        <label class="custom-control-label" for="@minPrice-@maxPrice-@formClass">@minPrice TL - @maxPrice TL</label>
                         <span class="text-gray-25 font-size-12 font-weight-normal"> (@g.Count())</span>
                     </div>
                 </div>
