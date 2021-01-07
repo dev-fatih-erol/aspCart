@@ -44,6 +44,24 @@
             <!-- End Checkboxes -->
         </div>
     }
+    @if (Model.CategoryFilterViewModel.Count > 0)
+    {
+        <div class="border-bottom pb-4 mb-4">
+            <h4 class="font-size-14 mb-3 font-weight-bold">Kategori</h4>
+            <!-- Checkboxes -->
+            @foreach (var category in Model.CategoryFilterViewModel)
+            {
+                <div class="form-group d-flex align-items-center justify-content-between mb-2 pb-1">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" id="@category.SeoUrl-@formClass" name="kategori" value="@category.SeoUrl" class="custom-control-input">
+                        <label class="custom-control-label" for="@category.SeoUrl-@formClass">@category.Name</label>
+                        <span class="text-gray-25 font-size-12 font-weight-normal"> (@category.Quantity)</span>
+                    </div>
+                </div>
+            }
+            <!-- End Checkboxes -->
+        </div>
+    }
     @if (Model.PriceGroupings.Count() > 0)
     {
         <div class="border-bottom pb-4 mb-4">
