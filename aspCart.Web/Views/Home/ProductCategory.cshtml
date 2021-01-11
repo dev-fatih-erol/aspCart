@@ -105,7 +105,7 @@
                     <!-- Shop-control-bar Title -->
                     <div class="d-block d-md-flex flex-center-between mb-3">
                         <h3 class="font-size-25 mb-2 mb-md-0">@category.Name</h3>
-                        <p class="font-size-14 text-gray-90 mb-0"><strong>1</strong> ile <strong>@Model.Count()</strong> arası sonuçlar gösteriliyor</p>
+                        <p class="font-size-14 text-gray-90 mb-0"><strong>@category.Name</strong> araması için <strong>@Model.Count()</strong> sonuç bulundu.</p>
                     </div>
                     <!-- End shop-control-bar Title -->
                     <!-- Shop-control-bar -->
@@ -164,7 +164,7 @@
                                 <!-- Select -->
                                 <select id="sortBy" class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0 mr-3"
                                         data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                                    <option id="varsayilan" value="varsayilan">Varsayılan</option>
+                                    <option id="varsayilan" value="varsayilan">Gelişmiş Sıralama</option>
                                     <option id="endusukfiyat" value="endusukfiyat">En düşük fiyat</option>
                                     <option id="enyuksekfiyat" value="enyuksekfiyat">En yüksek fiyat</option>
                                     <option id="encoksatan" value="encoksatan" disabled>En çok satan</option>
@@ -475,7 +475,7 @@
                     <!-- End Shop Body -->
                     <!-- Shop Pagination -->
                     <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
-                        <div class="text-center text-md-left mb-3 mb-md-0"><strong>1</strong> ile <strong>@Model.Count()</strong> arası sonuçlar gösteriliyor</div>
+                        <div class="text-center text-md-left mb-3 mb-md-0"><strong>@category.Name</strong> araması için <strong>@Model.Count()</strong> sonuç bulundu.</div>
                     </nav>
                     <!-- End Shop Pagination -->
                 }

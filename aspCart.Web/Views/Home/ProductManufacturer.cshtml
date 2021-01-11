@@ -1,115 +1,610 @@
 ﻿@model IEnumerable<ProductModel>
 @{
-    ViewData["Title"] = ViewData["Manufacturer"];
+    var cssClass = new CssClassHelper();
+    int indexFirstView = 1;
+    int indexSecondView = 1;
+    var manufacturer = (Manufacturer)ViewData["Manufacturer"];
+    var currentManufacturerData = (ManufacturerModel)ViewData["CurrentManufacturerData"];
+    var manufacturers = (List<ManufacturerModel>)ViewData["Manufacturers"];
+    ViewData["Title"] = manufacturer.MetaTitle ?? manufacturer.Name + " - " + "OrganikFabrika.com";
 }
 
-<div class="row-side">
-    <div class="left-nav">
-        @await Component.InvokeAsync("Filter", new { manufacturerFilter = ViewData["Manufacturer"] })
+<main id="content" role="main">
+    <!-- breadcrumb -->
+    <div class="bg-gray-13 bg-md-transparent">
+        <div class="container">
+            <!-- breadcrumb -->
+            <div class="my-md-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a asp-action="Index" asp-controller="Home">Anasayfa</a></li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">@manufacturer.Name</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- End breadcrumb -->
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-12">
-        <div class="row">
-            <div class="col-md-12">
-                <h2 class="text-muted">@ViewData["Manufacturer"] product list</h2>
-                <hr />
-            </div>
-        </div>
-        <div class="row">
-            <!-- sorting place holder -->
-            <div class="col-md-12">
-                <form id="sortByForm">
-                    <label>Sort by: </label>
-                    <select id="sortBy">
-                        <option id="varsayilan" value="varsayilan">Varsayılan</option>
-                        <option id="endusukfiyat" value="endusukfiyat">En düşük fiyat</option>
-                        <option id="enyuksekfiyat" value="enyuksekfiyat">En yüksek fiyat</option>
-                        <option id="encoksatan" value="encoksatan" disabled>En çok satan</option>
-                        <option id="encokdegerlendirme" value="encokdegerlendirme">En çok değerlendirme</option>
-                        <option id="enyeniler" value="enyeniler">En yeniler</option>
-                    </select>
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <!-- sort badge -->
-            <div class="col-md-12">
-                <div class="form-horizontal">
-                    @foreach (var c in (List<string>)ViewData["SortKey"])
-                    {
-                        <span class="badge badge-info sort-key">
-                            @c <span class="badge-delete" data-value="@c">x</span>
-                        </span>
-                    }
-                </div>
-            </div>
-        </div>
-        <div class="row" style="margin-top: 8px;">
-            <!-- main content -->
-            @if (Model.Count() > 0)
-            {
-                @foreach (var product in Model)
-                {
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="card">
-                            <center>
-                                <a href="/Product/@product.SeoUrl">
-                                    @if (product.MainImage != null)
+    <!-- End breadcrumb -->
+
+    <div class="container">
+        <div class="row mb-8">
+            <div class="d-none d-xl-block col-xl-3 col-wd-2gdot5">
+                <div class="mb-8 border border-width-2 border-color-3 borders-radius-6">
+                    <!-- List -->
+                    <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar">
+                        <li>
+                            <a class="dropdown-toggle dropdown-toggle-collapse dropdown-title" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="sidebarNav1Collapse" data-target="#sidebarNav1Collapse">
+                                Tüm Şehirleri Gör
+                            </a>
+
+                            <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
+                                <ul id="sidebarNav1" class="list-unstyled dropdown-list">
+                                    <!-- Menu List -->
+                                    @foreach (var manufacturerItem in manufacturers)
                                     {
-                                        <img class="card-img-top img-fluid" src="@product.MainImage" alt="@product.Name" />
+                                        <li><a class="dropdown-item" asp-route-manufacturer="@manufacturerItem.SeoUrl" asp-action="ProductManufacturer" asp-controller="Home">@manufacturerItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturerItem.ProductCount)</span></a></li>
                                     }
-                                    else
-                                    {
-                                        <img class="card-img-top img-fluid" src="~/images/system/no-image.png" alt="@product.Name" />
-                                    }
-                                </a>
-                            </center>
-                            <div class="card-block">
-                                <a href="/Product/@product.SeoUrl" class="card-title text-muted" title="@product.Name">@product.Name</a>
-                                <div class="card-text">@product.Price.ToString("C2")</div>
+                                    <!-- End Menu List -->
+                                </ul>
                             </div>
-                            <div class="card-footer">
-                                <form asp-area="" asp-controller="Cart" asp-action="Add" method="post">
-                                    <input type="hidden" value="@product.Id" name="id" />
-                                    <button type="submit" id="addToCart" class="btn btn-primary btn-sm">Add to cart</button>
-                                    @if (product.Rating > 0)
-                                    {
-                                        <div class="float-right">
-                                            <i class="fa fa-star star-active"></i>
-                                            <span>@product.Rating.ToString("N2")</span>
-                                        </div>
-                                    }
-                                </form>
+                        </li>
+                        <li>
+                            <a class="dropdown-current active" style="border-bottom: none" asp-route-manufacturer="@currentManufacturerData.SeoUrl" asp-action="ProductManufacturer" asp-controller="Home">@currentManufacturerData.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@currentManufacturerData.ProductCount)</span></a>
+                        </li>
+                    </ul>
+                    <!-- End List -->
+                </div>
+                <div class="mb-6">
+                    @await Component.InvokeAsync("Filter", new { manufacturerFilter = manufacturer.SeoUrl, formClass = "Web" })
+                </div>
+                @await Component.InvokeAsync("TopRatedColumn")
+            </div>
+            <div class="col-xl-9 col-wd-9gdot5">
+                @if (Model.Count() > 0)
+                {
+                    @if (((List<string>)ViewData["SortKey"]).Count() > 0)
+                    {
+                        <div class="mb-2">
+                            <div class=" d-flex justify-content-between border-bottom border-color-1 flex-lg-nowrap flex-wrap border-md-down-top-0 border-md-down-bottom-0 mb-4">
+                                <h3 class="section-title mb-0 pb-2 font-size-22">Filtreler</h3>
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                @foreach (var c in (List<string>)ViewData["SortKey"])
+                                {
+                                    <span class="btn btn-soft-secondary rounded font-weight-normal pr-1 mr-2d mb-2d"><span id="badge-@c"></span><a style="padding:13px; margin-left: 10px;" href="javascript:void(0)" class="text-gray-27 badge-delete" data-value="@c"><span class="fa fa-times"></span></a></span>
+                                }
                             </div>
                         </div>
+
+                    }
+                    <!-- Shop-control-bar Title -->
+                    <div class="d-block d-md-flex flex-center-between mb-3">
+                        <h3 class="font-size-25 mb-2 mb-md-0">@manufacturer.Name</h3>
+                        <p class="font-size-14 text-gray-90 mb-0"><strong>@manufacturer.Name</strong> araması için <strong>@Model.Count()</strong> sonuç bulundu.</p>
                     </div>
+                    <!-- End shop-control-bar Title -->
+                    <!-- Shop-control-bar -->
+                    <div class="bg-gray-1 flex-center-between borders-radius-9 py-1">
+                        <div class="d-xl-none">
+                            <!-- Account Sidebar Toggle Button -->
+                            <a id="sidebarNavToggler1" class="btn btn-sm py-1 font-weight-normal" href="javascript:;" role="button"
+                               aria-controls="sidebarContent1"
+                               aria-haspopup="true"
+                               aria-expanded="false"
+                               data-unfold-event="click"
+                               data-unfold-hide-on-scroll="false"
+                               data-unfold-target="#sidebarContent1"
+                               data-unfold-type="css-animation"
+                               data-unfold-animation-in="fadeInLeft"
+                               data-unfold-animation-out="fadeOutLeft"
+                               data-unfold-duration="500">
+                                <i class="fas fa-sliders-h"></i> <span class="ml-1">Popüler Filtreler</span>
+                            </a>
+                            <!-- End Account Sidebar Toggle Button -->
+                        </div>
+                        <div class="px-3 d-none d-xl-block">
+                            <ul class="nav nav-tab-shop" id="pills-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-one-example1-tab" data-toggle="pill" href="#pills-one-example1" role="tab" aria-controls="pills-one-example1" aria-selected="false">
+                                        <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                            <i class="fa fa-th"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-two-example1-tab" data-toggle="pill" href="#pills-two-example1" role="tab" aria-controls="pills-two-example1" aria-selected="false">
+                                        <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                            <i class="fa fa-align-justify"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-three-example1-tab" data-toggle="pill" href="#pills-three-example1" role="tab" aria-controls="pills-three-example1" aria-selected="true">
+                                        <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                            <i class="fa fa-list"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="pills-four-example1-tab" data-toggle="pill" href="#pills-four-example1" role="tab" aria-controls="pills-four-example1" aria-selected="true">
+                                        <div class="d-md-flex justify-content-md-center align-items-md-center">
+                                            <i class="fa fa-th-list"></i>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex">
+                            <form id="sortByForm">
+                                <!-- Select -->
+                                <select id="sortBy" class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0 mr-3"
+                                        data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
+                                    <option id="varsayilan" value="varsayilan">Gelişmiş Sıralama</option>
+                                    <option id="endusukfiyat" value="endusukfiyat">En düşük fiyat</option>
+                                    <option id="enyuksekfiyat" value="enyuksekfiyat">En yüksek fiyat</option>
+                                    <option id="encoksatan" value="encoksatan" disabled>En çok satan</option>
+                                    <option id="encokdegerlendirme" value="encokdegerlendirme">En çok değerlendirme</option>
+                                    <option id="enyeniler" value="enyeniler">En yeniler</option>
+                                </select>
+                                <!-- End Select -->
+                            </form>
+                        </div>
+                    </div>
+                    <!-- End Shop-control-bar -->
+                    <!-- Shop Body -->
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade pt-2 show active" id="pills-one-example1" role="tabpanel" aria-labelledby="pills-one-example1-tab" data-target-group="groups">
+                            <ul class="row list-unstyled products-group no-gutters">
+                                @foreach (var product in Model)
+                                {
+                                    <li class="col-6 col-md-3 col-wd-2gdot4 product-item @cssClass.GetType4(indexFirstView)">
+                                        <div class="product-item__outer h-100">
+                                            <div class="product-item__inner px-xl-4 p-3">
+                                                <div class="product-item__body pb-xl-2">
+                                                    <div class="mb-2"><a asp-route-category="@product.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5">@product.Categories.First().Name</a></div>
+                                                    <h5 class="mb-1 product-item__title"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                                                    <div class="mb-2">
+                                                        <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img10.jpg" alt="@product.Name"></a>
+                                                    </div>
+                                                    <div class="flex-center-between mb-1">
+                                                        <div class="prodcut-price @((product.OldPrice > 0) ? "d-flex align-items-center position-relative": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="font-size-20 text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        <div class="d-none d-xl-block prodcut-add-cart">
+                                                            <a href="../shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    indexFirstView++;
+                                }
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade pt-2" id="pills-two-example1" role="tabpanel" aria-labelledby="pills-two-example1-tab" data-target-group="groups">
+                            <ul class="row list-unstyled products-group no-gutters">
+                                @foreach (var product in Model)
+                                {
+                                    <li class="col-6 col-md-3 col-wd-2gdot4 product-item @cssClass.GetType4(indexSecondView)">
+                                        <div class="product-item__outer h-100">
+                                            <div class="product-item__inner px-xl-4 p-3">
+                                                <div class="product-item__body pb-xl-2">
+                                                    <div class="mb-2"><a asp-route-category="@product.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5">@product.Categories.First().Name</a></div>
+                                                    <h5 class="mb-1 product-item__title"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                                                    <div class="mb-2">
+                                                        <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img9.jpg" alt="@product.Name"></a>
+                                                    </div>
+                                                    @if (product.Rating > 0)
+                                                    {
+                                                        <div class="mb-3">
+                                                            <div class="d-inline-flex align-items-center small font-size-14">
+                                                                <div class="text-warning mr-2">
+                                                                    @{ int activeStar = 0;
+                                                                        int roundedRating = Convert.ToInt32(Math.Round(product.Rating, 0, MidpointRounding.AwayFromZero)); }
+                                                                    @for (int i = 0; i < roundedRating; i++)
+                                                                    {
+                                                                        <small class="fas fa-star"></small>activeStar++;
+                                                                    }
+                                                                    @for (int i = 0; i < 5 - activeStar; i++)
+                                                                    {
+                                                                        <small class="far fa-star text-muted"></small>
+                                                                    }
+                                                                </div>
+                                                                <span class="text-secondary">(@product.Rating.ToString("N1"))</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="mb-3">
+                                                            <div class="d-inline-flex align-items-center small font-size-14">
+                                                                <span class="text-secondary font-size-13">Henüz Değerlendirilmemiş</span>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                    <ul class="font-size-12 p-0 text-gray-110 mb-4">
+                                                        <li class="line-clamp-1 mb-1 list-bullet">Brand new and high quality</li>
+                                                        <li class="line-clamp-1 mb-1 list-bullet">Made of supreme quality, durable EVA crush resistant, anti-shock material.</li>
+                                                        <li class="line-clamp-1 mb-1 list-bullet">20 MP Electro and 28 megapixel CMOS rear camera</li>
+                                                    </ul>
+                                                    <div class="flex-center-between mb-1">
+                                                        <div class="prodcut-price @((product.OldPrice > 0) ? "d-flex align-items-center position-relative": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="font-size-20 text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        <div class="d-none d-xl-block prodcut-add-cart">
+                                                            <a href="../shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    indexSecondView++;
+                                }
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade pt-2" id="pills-three-example1" role="tabpanel" aria-labelledby="pills-three-example1-tab" data-target-group="groups">
+                            <ul class="d-block list-unstyled products-group prodcut-list-view">
+                                @foreach (var product in Model)
+                                {
+                                    <li class="product-item remove-divider">
+                                        <div class="product-item__outer w-100">
+                                            <div class="product-item__inner remove-prodcut-hover py-4 row">
+                                                <div class="product-item__header col-6 col-md-4">
+                                                    <div class="mb-2">
+                                                        <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img9.jpg" alt="@product.Name"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-item__body col-6 col-md-5">
+                                                    <div class="pr-lg-10">
+                                                        <div class="mb-2"><a asp-route-category="@product.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5">@product.Categories.First().Name</a></div>
+                                                        <h5 class="mb-2 product-item__title"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                                                        @*<div class="prodcut-price mb-2 d-md-none">
+                                                                <div class="text-gray-100">$685,00</div>
+                                                            </div>*@
+                                                        <div class="prodcut-price mb-2 d-md-none mt-auto @((product.OldPrice > 0) ? "flex-horizontal-center": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 ml-2">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        @if (product.Rating > 0)
+                                                        {
+                                                            <div class="mb-3 d-none d-md-block">
+                                                                <div class="d-inline-flex align-items-center small font-size-14">
+                                                                    <div class="text-warning mr-2">
+                                                                        @{ int activeStar = 0;
+                                                                            int roundedRating = Convert.ToInt32(Math.Round(product.Rating, 0, MidpointRounding.AwayFromZero)); }
+                                                                        @for (int i = 0; i < roundedRating; i++)
+                                                                        {
+                                                                            <small class="fas fa-star"></small>activeStar++;
+                                                                        }
+                                                                        @for (int i = 0; i < 5 - activeStar; i++)
+                                                                        {
+                                                                            <small class="far fa-star text-muted"></small>
+                                                                        }
+                                                                    </div>
+                                                                    <span class="text-secondary">(@product.Rating.ToString("N1"))</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="mb-3 d-none d-md-block">
+                                                                <div class="d-inline-flex align-items-center small font-size-14">
+                                                                    <span class="text-secondary font-size-13">Henüz Değerlendirilmemiş</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        <ul class="font-size-12 p-0 text-gray-110 mb-4 d-none d-md-block">
+                                                            <li class="line-clamp-1 mb-1 list-bullet">Brand new and high quality</li>
+                                                            <li class="line-clamp-1 mb-1 list-bullet">Made of supreme quality, durable EVA crush resistant, anti-shock material.</li>
+                                                            <li class="line-clamp-1 mb-1 list-bullet">20 MP Electro and 28 megapixel CMOS rear camera</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="product-item__footer col-md-3 d-md-block">
+                                                    <div class="mb-3">
+                                                        @*<div class="prodcut-price mb-2">
+                                                                <div class="text-gray-100">$685,00</div>
+                                                            </div>*@
+                                                        <div class="prodcut-price mb-2 mt-auto @((product.OldPrice > 0) ? "flex-horizontal-center": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 ml-2">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        <div class="prodcut-add-cart">
+                                                            <a href="../shop/single-product-fullwidth.html" class="btn btn-sm btn-block btn-primary-dark btn-wide transition-3d-hover">Sepete Ekle</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                        <div class="tab-pane fade pt-2" id="pills-four-example1" role="tabpanel" aria-labelledby="pills-four-example1-tab" data-target-group="groups">
+                            <ul class="d-block list-unstyled products-group prodcut-list-view-small">
+                                @foreach (var product in Model)
+                                {
+                                    <li class="product-item remove-divider">
+                                        <div class="product-item__outer w-100">
+                                            <div class="product-item__inner remove-prodcut-hover py-4 row">
+                                                <div class="product-item__header col-6 col-md-2">
+                                                    <div class="mb-2">
+                                                        <a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="d-block text-center"><img class="img-fluid" src="../../assets/img/212X200/img9.jpg" alt="@product.Name"></a>
+                                                    </div>
+                                                </div>
+                                                <div class="product-item__body col-6 col-md-7">
+                                                    <div class="pr-lg-10">
+                                                        <div class="mb-2"><a asp-route-category="@product.Categories.First().SeoUrl" asp-action="ProductCategory" asp-controller="Home" class="font-size-12 text-gray-5">@product.Categories.First().Name</a></div>
+                                                        <h5 class="mb-2 product-item__title"><a asp-route-seo="@product.SeoUrl" asp-action="ProductInfo" asp-controller="Home" class="text-blue font-weight-bold">@product.Name</a></h5>
+                                                        @*<div class="prodcut-price d-md-none">
+                                                              <div class="text-gray-100">$685,00</div>
+                                                            </div>*@
+                                                        <div class="prodcut-price d-md-none @((product.OldPrice > 0) ? "mt-5 d-flex align-items-center position-relative": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        <ul class="font-size-12 p-0 text-gray-110 mb-4 d-none d-md-block">
+                                                            <li class="line-clamp-1 mb-1 list-bullet">Brand new and high quality</li>
+                                                            <li class="line-clamp-1 mb-1 list-bullet">Made of supreme quality, durable EVA crush resistant, anti-shock material.</li>
+                                                            <li class="line-clamp-1 mb-1 list-bullet">20 MP Electro and 28 megapixel CMOS rear camera</li>
+                                                        </ul>
+                                                        @if (product.Rating > 0)
+                                                        {
+                                                            <div class="mb-3 d-none d-md-block">
+                                                                <div class="d-inline-flex align-items-center small font-size-14">
+                                                                    <div class="text-warning mr-2">
+                                                                        @{ int activeStar = 0;
+                                                                            int roundedRating = Convert.ToInt32(Math.Round(product.Rating, 0, MidpointRounding.AwayFromZero)); }
+                                                                        @for (int i = 0; i < roundedRating; i++)
+                                                                        {
+                                                                            <small class="fas fa-star"></small>activeStar++;
+                                                                        }
+                                                                        @for (int i = 0; i < 5 - activeStar; i++)
+                                                                        {
+                                                                            <small class="far fa-star text-muted"></small>
+                                                                        }
+                                                                    </div>
+                                                                    <span class="text-secondary">(@product.Rating.ToString("N1"))</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="mb-3 d-none d-md-block">
+                                                                <div class="d-inline-flex align-items-center small font-size-14">
+                                                                    <span class="text-secondary font-size-13">Henüz Değerlendirilmemiş</span>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="product-item__footer col-md-3 d-md-block">
+                                                    <div class="mb-2 flex-center-between" style="margin-top:19px;">
+                                                        @*<div class="prodcut-price">
+                                                                <div class="text-gray-100">$685,00</div>
+                                                            </div>*@
+                                                        <div class="prodcut-price @((product.OldPrice > 0) ? "d-flex align-items-center position-relative": "")">
+                                                            @if (product.OldPrice > 0)
+                                                            {
+                                                                <ins class="text-red text-decoration-none">@Html.Raw(product.Price.ToString("N2")) TL</ins>
+                                                                <del class="font-size-12 text-gray-6 position-absolute bottom-100">@product.OldPrice.ToString("N2") TL</del>
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="text-gray-100">@product.Price.ToString("N2") TL</div>
+                                                            }
+                                                        </div>
+                                                        <div class="prodcut-add-cart">
+                                                            <a href="../shop/single-product-fullwidth.html" class="btn-add-cart btn-primary transition-3d-hover"><i class="ec ec-add-to-cart"></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Tab Content -->
+                    <!-- End Shop Body -->
+                    <!-- Shop Pagination -->
+                    <nav class="d-md-flex justify-content-between align-items-center border-top pt-3" aria-label="Page navigation example">
+                        <div class="text-center text-md-left mb-3 mb-md-0"><strong>@manufacturer.Name</strong> araması için <strong>@Model.Count()</strong> sonuç bulundu.</div>
+                    </nav>
+                    <!-- End Shop Pagination -->
                 }
-            }
-            else
-            {
-                <div class="col-md-12">
-                    <h5>No product listing for this manufacturer</h5>
+                else
+                {
+
+                }
+            </div>
+        </div>
+        <!-- Brand Carousel -->
+        <div class="mb-6">
+            <div class="py-2 border-top border-bottom">
+                <div class="js-slick-carousel u-slick my-1"
+                     data-slides-show="5"
+                     data-slides-scroll="1"
+                     data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-normal u-slick__arrow-centered--y"
+                     data-arrow-left-classes="fa fa-angle-left u-slick__arrow-classic-inner--left z-index-9"
+                     data-arrow-right-classes="fa fa-angle-right u-slick__arrow-classic-inner--right"
+                     data-responsive='[{
+                                "breakpoint": 992,
+                                "settings": {
+                                    "slidesToShow": 2
+                                }
+                            }, {
+                                "breakpoint": 768,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }, {
+                                "breakpoint": 554,
+                                "settings": {
+                                    "slidesToShow": 1
+                                }
+                            }]'>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img1.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img2.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img3.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img4.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img5.png" alt="Image Description">
+                        </a>
+                    </div>
+                    <div class="js-slide">
+                        <a href="#" class="link-hover__brand">
+                            <img class="img-fluid m-auto max-height-50" src="../../assets/img/200X60/img6.png" alt="Image Description">
+                        </a>
+                    </div>
                 </div>
-            }
+            </div>
+        </div>
+        <!-- End Brand Carousel -->
+    </div>
+</main>
+<!-- Sidebar Navigation -->
+<aside id="sidebarContent1" class="u-sidebar u-sidebar--left" aria-labelledby="sidebarNavToggler1">
+    <div class="u-sidebar__scroller">
+        <div class="u-sidebar__container">
+            <div class="">
+                <!-- Toggle Button -->
+                <div class="d-flex align-items-center pt-3 px-4 bg-white">
+                    <button type="button" class="close ml-auto"
+                            aria-controls="sidebarContent1"
+                            aria-haspopup="true"
+                            aria-expanded="false"
+                            data-unfold-event="click"
+                            data-unfold-hide-on-scroll="false"
+                            data-unfold-target="#sidebarContent1"
+                            data-unfold-type="css-animation"
+                            data-unfold-animation-in="fadeInLeft"
+                            data-unfold-animation-out="fadeOutLeft"
+                            data-unfold-duration="500">
+                        <span aria-hidden="true"><i class="ec ec-close-remove"></i></span>
+                    </button>
+                </div>
+                <!-- End Toggle Button -->
+                <!-- Content -->
+                <div class="js-scrollbar u-sidebar__body">
+                    <div class="u-sidebar__content u-header-sidebar__content px-4">
+                        <div class="mb-6 border border-width-2 border-color-3 borders-radius-6">
+                            <!-- List -->
+                            <ul id="sidebarNav" class="list-unstyled mb-0 sidebar-navbar">
+                                <li>
+                                    <a class="dropdown-toggle dropdown-toggle-collapse dropdown-title" href="javascript:;" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="sidebarNav1Collapse" data-target="#sidebarNav1Collapse">
+                                        Tüm Şehirleri Gör
+                                    </a>
+
+                                    <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
+                                        <ul id="sidebarNav1" class="list-unstyled dropdown-list">
+                                            <!-- Menu List -->
+                                            @foreach (var manufacturerItem in manufacturers)
+                                            {
+                                                <li><a class="dropdown-item" asp-route-manufacturer="@manufacturerItem.SeoUrl" asp-action="ProductManufacturer" asp-controller="Home">@manufacturerItem.Name<span class="text-gray-25 font-size-12 font-weight-normal"> (@manufacturerItem.ProductCount)</span></a></li>
+                                            }
+                                            <!-- End Menu List -->
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="dropdown-current active" style="border-bottom: none" asp-route-manufacturer="@currentManufacturerData.SeoUrl" asp-action="ProductManufacturer" asp-controller="Home">@currentManufacturerData.Name <span class="text-gray-25 font-size-12 font-weight-normal"> (@currentManufacturerData.ProductCount)</span></a>
+                                </li>
+                            </ul>
+                            <!-- End List -->
+                        </div>
+                        <div class="mb-6">
+                            @await Component.InvokeAsync("Filter", new { manufacturerFilter = manufacturer.SeoUrl, formClass = "Mobile" })
+                        </div>
+                        @await Component.InvokeAsync("TopRatedColumn")
+                    </div>
+                </div>
+                <!-- End Content -->
+            </div>
         </div>
     </div>
-</div>
+</aside>
+<!-- End Sidebar Navigation -->
 @section Scripts{
     <script>
     // recheck all selected filters
     $(function () {
         let sortKey = @Json.Serialize(ViewData["SortKey"]);
-        $.each(sortKey, function(index, value){
-            $("[id='" + value + "']").prop('checked', true);
+        $("input[id*='-Web']").removeAttr('checked');
+        $("input[id*='-Mobile']").removeAttr('checked');
+        $.each(sortKey, function (index, value) {
+            console.log(value)
+            $("[id='" + value + "-Web']").prop('checked', true);
+            $("[id='" + value + "-Mobile']").prop('checked', true);
+            var text = $("[id='" + value + "-Web']").next('label').text();
+            $("#badge-" + value).text(text);
         });
     });
 
     $(function(){
         $('.badge-delete').on('click', function() {
             let idToDelete = $(this).data('value');
-            $(this).parent().remove();
-            $("[id='" + idToDelete + "']").prop('checked', false);
+            $("[id='" + idToDelete + "-Web']").prop('checked', false);
+            $("[id='" + idToDelete + "-Mobile']").prop('checked', false);
             $('#filterForm').submit(); // submit form from file Views/Shared/Components/Filter/Default.cshtml
         });
     });
@@ -117,8 +612,8 @@
     $(function(){
         let sortBy = '@(ViewData["SortBy"] == null ? "varsayilan" : ViewData["SortBy"])';
         $('#' + sortBy).prop('selected', true);
-
-        $('#sortBy').on('change', function(){
+        $('.selectpicker').selectpicker('refresh')
+        $('#sortBy').on('change', function () {
             $('#sortByFilter').val($(this).val());
             $('#filterForm').submit(); // submit form from file Views/Shared/Components/Filter/Default.cshtml
         });

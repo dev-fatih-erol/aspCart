@@ -35228,7 +35228,8 @@ blockquote:not(.blockquote) p {
 
 @media (min-width: 1200px) {
   .product-item:hover .product-item__inner:not(.remove-prodcut-hover) {
-    position: absolute;
+    /*position: absolute;*/
+    position:relative;
     width: 100%;
     height: auto;
     min-height: 100%;

@@ -20,6 +20,7 @@ namespace aspCart.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IOrderService _orderService;
         private readonly ICategoryService _categoryService;
+        private readonly IManufacturerService _manufacturerService;
         private readonly IProductService _productService;
         private readonly IReviewService _reviewService;
         private readonly IMapper _mapper;
@@ -28,6 +29,7 @@ namespace aspCart.Web.Controllers
             UserManager<ApplicationUser> userManager,
             IOrderService orderService,
             ICategoryService categoryService,
+            IManufacturerService manufacturerService,
             IProductService productService,
             IReviewService reviewService,
             IMapper mapper)
@@ -35,6 +37,7 @@ namespace aspCart.Web.Controllers
             _userManager = userManager;
             _orderService = orderService;
             _categoryService = categoryService;
+            _manufacturerService = manufacturerService;
             _productService = productService;
             _reviewService = reviewService;
             _mapper = mapper;
@@ -212,15 +215,6 @@ namespace aspCart.Web.Controllers
                         productModel.Price = product.SpecialPrice ?? productModel.OldPrice;
                     }
 
-                    // get manufacturer
-                    if (product.Manufacturers.Count > 0)
-                    {
-                        foreach (var m in product.Manufacturers)
-                        {
-                            productModel.Manufacturers.Add(new ManufacturerModel { Name = m.Manufacturer.Name, SeoUrl = m.Manufacturer.SeoUrl });
-                        }
-                    }
-
                     //get product rating
                     var reviews = _reviewService.GetReviewsByProductId(productModel.Id);
                     if (reviews != null && reviews.Count > 0)
@@ -304,21 +298,6 @@ namespace aspCart.Web.Controllers
                 };
                 ViewData["CurrentCategoryData"] = currentCategoryData;
 
-                /// Start silinecek 
-                var proc = productList.Take(3).ToList();
-                productList.AddRange(proc);
-                var proc1 = productList.Take(3).ToList();
-                productList.AddRange(proc1);
-                var proc2 = productList.Take(3).ToList();
-                productList.AddRange(proc2);
-                var proc3 = productList.Take(3).ToList();
-                productList.AddRange(proc3);
-                var proc4 = productList.Take(3).ToList();
-                productList.AddRange(proc4);
-
-                var proc5 = productList.Take(10).ToList();
-                productList.AddRange(proc5);
-                /// End silinecek
                 return View(productList);
             }
 
@@ -340,6 +319,10 @@ namespace aspCart.Web.Controllers
                 {
                     var productModel = _mapper.Map<Product, ProductModel>(product);
 
+                    productModel.Categories = product.Categories
+                        .Select(x => new CategoryModel { Name = x.Category.Name, SeoUrl = x.Category.SeoUrl })
+                        .ToList();
+
                     // get main image
                     if (product.Images.Count > 0)
                     {
@@ -351,10 +334,11 @@ namespace aspCart.Web.Controllers
                             .FileName;
                     }
 
-                    // get all categories
-                    foreach (var c in product.Categories)
+                    // check for discount
+                    if (product.SpecialPriceEndDate != null && product.SpecialPriceEndDate >= DateTime.Now)
                     {
-                        productModel.Categories.Add(new CategoryModel { Name = c.Category.Name, SeoUrl = c.Category.SeoUrl });
+                        productModel.OldPrice = product.Price;
+                        productModel.Price = product.SpecialPrice ?? productModel.OldPrice;
                     }
 
                     //get product rating
@@ -369,43 +353,46 @@ namespace aspCart.Web.Controllers
                     productList.Add(productModel);
                 }
 
-                var result = productList;
-
-                // filter the result using category parameter
-                if (category.Length > 0)
-                {
-                    result = result.Where(x => x.Categories.Select(c => c.SeoUrl).Intersect(category).Count() > 0).ToList();
-                }
-
-                // filter the result using price parameter
-                if (price.Length > 0)
-                {
-                    var tmpResult = new List<ProductModel>();
-                    foreach (var p in price)
-                    {
-                        var tmpPrice = p.Split(new char[] { '-' });
-                        int minPrice = Convert.ToInt32(tmpPrice[0]);
-                        int maxPrice = Convert.ToInt32(tmpPrice[1]);
-
-                        var r = result.Where(x => x.Price >= minPrice && x.Price <= maxPrice).ToList();
-
-                        if (r.Count > 0) { tmpResult.AddRange(r); }
-                    }
-                    result = tmpResult;
-                }
-
                 // sort result if the parameter is provided
                 if (sortBy != null && sortBy.Length > 0)
                 {
-                    SortProductModel(sortBy, ref result);
+                    SortProductModel(sortBy, ref productList);
                 }
 
                 // get all filters to recheck all filters in view
                 var allFilters = category.Concat(price).ToList();
                 ViewData["SortKey"] = allFilters;
-                ViewData["Manufacturer"] = manufacturer;
 
-                return View(result);
+                var currentManufacturer = _manufacturerService.GetManufacturerBySeo(manufacturer);
+                ViewData["Manufacturer"] = currentManufacturer;
+
+                var manufacturers = new List<ManufacturerModel>();
+                foreach (var manufacturerItem in _manufacturerService.GetAllManufacturers())
+                {
+                    manufacturers.Add(new ManufacturerModel
+                    {
+                        Name = manufacturerItem.Name,
+                        SeoUrl = manufacturerItem.SeoUrl,
+                        ProductCount = _productService.Table()
+                                                      .Where(x => x.Manufacturers
+                                                      .Any(c => c.ManufacturerId == manufacturerItem.Id))
+                                                      .Count()
+                    });
+                }
+                ViewData["Manufacturers"] = manufacturers;
+
+                var currentManufacturerData = new ManufacturerModel
+                {
+                    Name = currentManufacturer.Name,
+                    SeoUrl = currentManufacturer.SeoUrl,
+                    ProductCount = _productService.Table()
+                                                      .Where(x => x.Manufacturers
+                                                      .Any(c => c.ManufacturerId == currentManufacturer.Id))
+                                                      .Count()
+                };
+                ViewData["CurrentManufacturerData"] = currentManufacturerData;
+
+                return View(productList);
             }
 
             return RedirectToAction("Index", "Home");
