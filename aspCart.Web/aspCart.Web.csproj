@@ -57,5 +57,6 @@
     <Folder Include="Extensions\" />
     <Folder Include="Views\Shared\Components\CategoryNavigation\" />
     <Folder Include="Views\Shared\Components\TopRatedColumn\" />
+    <Folder Include="Views\Cart\" />
   </ItemGroup>
 </Project>
