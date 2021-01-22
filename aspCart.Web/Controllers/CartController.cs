@@ -132,6 +132,30 @@ namespace aspCart.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: /Cart/Delete
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Delete(Guid id)
+        {
+            if (id == null)
+                return RedirectToAction("Index");
+
+            if (Session.GetString(_cartItesmSessionKey) != null)
+            {
+                var cartItems = JsonConvert.DeserializeObject<List<CartItemModel>>(Session.GetString(_cartItesmSessionKey));
+
+                var cartItemToRemove = cartItems.SingleOrDefault(r => r.Id == id);
+                if (cartItemToRemove != null)
+                {
+                    cartItems.Remove(cartItemToRemove);
+                    Session.SetString(_cartItesmSessionKey, JsonConvert.SerializeObject(cartItems));
+                    Session.SetInt32(_cartItemsCountSessionKey, cartItems.Count());
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
         // GET: /Cart/Save
         [HttpPost]
         [ValidateAntiForgeryToken]
