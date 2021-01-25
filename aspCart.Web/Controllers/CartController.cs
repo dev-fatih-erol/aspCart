@@ -228,7 +228,7 @@ namespace aspCart.Web.Controllers
         public async Task<IActionResult> Checkout()
         {
             if (Session.GetString(_cartItesmSessionKey) == null)
-                return View("Index");
+                return RedirectToAction("Index");
 
             var user = await GetCurrentUserAsync();
             var checkoutModel = new CheckoutModel();

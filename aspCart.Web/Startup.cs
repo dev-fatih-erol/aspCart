@@ -201,7 +201,32 @@ namespace aspCart.Web
                     name: "Register",
                     pattern: "Hesabim/Kaydol",
                     defaults: new { controller = "Account", action = "Register" });
- 
+
+                routes.MapControllerRoute(
+                    name: "Cart",
+                    pattern: "Sepetim",
+                    defaults: new { controller = "Cart", action = "Index" });
+
+                routes.MapControllerRoute(
+                    name: "Cart",
+                    pattern: "Sepetim/Ekle",
+                    defaults: new { controller = "Cart", action = "Add" });
+
+                routes.MapControllerRoute(
+                    name: "Cart",
+                    pattern: "Sepetim/Sil",
+                    defaults: new { controller = "Cart", action = "Delete" });
+
+                routes.MapControllerRoute(
+                    name: "Cart",
+                    pattern: "Sepetim/Guncelle",
+                    defaults: new { controller = "Cart", action = "Save" });
+
+                routes.MapControllerRoute(
+                    name: "Checkout",
+                    pattern: "Odeme",
+                    defaults: new { controller = "Cart", action = "Checkout" });
+
                 routes.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
