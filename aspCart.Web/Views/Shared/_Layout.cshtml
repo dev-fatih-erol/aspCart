@@ -69,39 +69,10 @@
                         <div class="topbar-right ml-auto">
                             <ul class="list-inline mb-0">
                                 <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border full-bg">
-                                    <a href="#" class="u-header-topbar__nav-link"><i class="ec ec-map-pointer mr-1"></i> Store Locator</a>
+                                    <a href="#" class="u-header-topbar__nav-link"><i class="ec ec-map-pointer mr-1"></i> Mağazalar</a>
                                 </li>
                                 <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border full-bg">
-                                    <a href="../shop/track-your-order.html" class="u-header-topbar__nav-link"><i class="ec ec-transport mr-1"></i> Track Your Order</a>
-                                </li>
-                                <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border full-bg u-header-topbar__nav-item-no-border u-header-topbar__nav-item-border-single">
-                                    <div class="d-flex align-items-center">
-                                        <!-- Language -->
-                                        <div class="position-relative">
-                                            <a id="languageDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center u-header-topbar__nav-link font-weight-normal" href="javascript:;" role="button"
-                                               aria-controls="languageDropdown"
-                                               aria-haspopup="true"
-                                               aria-expanded="false"
-                                               data-unfold-event="hover"
-                                               data-unfold-target="#languageDropdown"
-                                               data-unfold-type="css-animation"
-                                               data-unfold-duration="300"
-                                               data-unfold-delay="300"
-                                               data-unfold-hide-on-scroll="true"
-                                               data-unfold-animation-in="slideInUp"
-                                               data-unfold-animation-out="fadeOut">
-                                                <span class="d-inline-block d-sm-none">US</span>
-                                                <span class="d-none d-sm-inline-flex align-items-center"><i class="ec ec-dollar mr-1"></i> Dollar (US)</span>
-                                            </a>
-
-                                            <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
-                                                <a class="dropdown-item active" href="#">English</a>
-                                                <a class="dropdown-item" href="#">Deutsch</a>
-                                                <a class="dropdown-item" href="#">Español‎</a>
-                                            </div>
-                                        </div>
-                                        <!-- End Language -->
-                                    </div>
+                                    <a href="../shop/track-your-order.html" class="u-header-topbar__nav-link"><i class="ec ec-transport mr-1"></i> Siparişinizi Takip Edin</a>
                                 </li>
                                 @await Html.PartialAsync("_LoginPartial")
                             </ul>
@@ -136,7 +107,7 @@
                                 </button>
                                 <!-- End Fullscreen Toggle Button -->
                                 <!-- Logo -->
-                                <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center mr-0" href="../home/index.html" aria-label="Electro">
+                                <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-center mr-0" asp-controller="Home" asp-action="Index" aria-label="Electro">
                                     <svg version="1.1" x="0px" y="0px" width="120px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                         <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                         <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -206,7 +177,7 @@
                                             <div class="js-scrollbar u-sidebar__body">
                                                 <div id="headerSidebarContent" class="u-sidebar__content u-header-sidebar__content">
                                                     <!-- Logo -->
-                                                    <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" href="../home/index.html" aria-label="Electro">
+                                                    <a class="d-flex ml-0 navbar-brand u-header__navbar-brand u-header__navbar-brand-vertical" asp-controller="Home" asp-action="Index" aria-label="Electro">
                                                         <svg version="1.1" x="0px" y="0px" width="175.748px" height="42.52px" viewBox="0 0 175.748 42.52" enable-background="new 0 0 175.748 42.52" style="margin-bottom: 0;">
                                                             <ellipse class="ellipse-bg" fill-rule="evenodd" clip-rule="evenodd" fill="#FDD700" cx="170.05" cy="36.341" rx="5.32" ry="5.367"></ellipse>
                                                             <path fill-rule="evenodd" clip-rule="evenodd" fill="#333E48" d="M30.514,0.71c-0.034,0.003-0.066,0.008-0.056,0.056
@@ -527,20 +498,15 @@
                                                 data-event="hover"
                                                 data-animation-in="slideInUp"
                                                 data-animation-out="fadeOut">
-                                                <a id="HomeMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle text-sale" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="HomeSubMenu">Home</a>
+                                                <a id="HomeMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle text-sale" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="HomeSubMenu">Anasayfa</a>
 
                                                 <!-- Home - Submenu -->
                                                 <ul id="HomeSubMenu" class="hs-sub-menu u-header__sub-menu animated fadeOut" aria-labelledby="HomeMegaMenu" style="min-width: 230px; display: none;">
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="index.html">Home v1</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v2.html">Home v2</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v3.html">Home v3</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v3-full-color-bg.html">Home v3.1</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v4.html">Home v4</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v5.html">Home v5</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v6.html">Home v6</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v7.html">Home v7</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v8.html">Home v8</a></li>
-                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v9.html">Home v9</a></li>
+                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="index.html">Hesabım</a></li>
+                                                    <li><a class="nav-link u-header__sub-menu-nav-link" asp-controller="Cart" asp-action="Index">Sepetim</a></li>
+                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v2.html">Hakkımızda</a></li>
+                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v3.html">Yardım Merkezi</a></li>
+                                                    <li><a class="nav-link u-header__sub-menu-nav-link" href="home-v4.html">İletişim</a></li>
                                                 </ul>
                                                 <!-- End Home - Submenu -->
                                             </li>
@@ -598,11 +564,11 @@
                                         <!-- End Input -->
                                     </li>
                                     <!-- End Search -->
-                                    <li class="col d-none d-xl-block"><a href="../shop/compare.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Compare"><i class="font-size-22 ec ec-compare"></i></a></li>
-                                    <li class="col d-none d-xl-block"><a href="../shop/wishlist.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorites"><i class="font-size-22 ec ec-favorites"></i></a></li>
+                                    <li class="col d-none d-xl-block"><a asp-controller="Home" asp-action="Index" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Karşılaştır"><i class="font-size-22 ec ec-compare"></i></a></li>
+                                    <li class="col d-none d-xl-block"><a asp-controller="Home" asp-action="Index" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="Favorilerim"><i class="font-size-22 ec ec-favorites"></i></a></li>
                                     <li class="col d-xl-none px-2 px-sm-3"><a href="../shop/my-account.html" class="text-gray-90" data-toggle="tooltip" data-placement="top" title="My Account"><i class="font-size-22 ec ec-user"></i></a></li>
                                     <li class="col pr-xl-0 px-2 px-sm-3">
-                                        <a href="../shop/cart.html" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Cart">
+                                        <a asp-controller="Cart" asp-action="Index" class="text-gray-90 position-relative d-flex " data-toggle="tooltip" data-placement="top" title="Sepetim">
                                             <i class="font-size-22 ec ec-shopping-bag"></i>
                                             <span class="width-22 height-22 bg-primary position-absolute d-flex align-items-center justify-content-center rounded-circle left-12 top-8 font-weight-bold font-size-12 bg-lg-down-black">2</span>
                                             <span class="d-none d-xl-block font-weight-bold font-size-16 text-gray-90 ml-3">$1785.00</span>
