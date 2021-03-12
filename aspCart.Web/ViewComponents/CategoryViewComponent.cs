@@ -1,4 +1,5 @@
 ﻿using aspCart.Core.Interface.Services.Catalog;
+using aspCart.Web.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ namespace aspCart.Web.ViewComponents
         public IViewComponentResult Invoke()
         {
             return View(
-                _categoryService.GetAllCategoriesWithoutParent().Where(x => x.Published)
+                _categoryService.GetAllCategoriesWithoutParent().Where(x => x.Published).OrderByPosition()
             );
         }
     }

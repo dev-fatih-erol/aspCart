@@ -2,5 +2,9 @@
 
 @foreach (var category in Model)
 {
-    <a asp-controller="Category" asp-action="@category.Name">@category.Name</a>
+    <li class="nav-item u-header__nav-item"
+        data-event="hover"
+        data-position="left">
+        <a class="nav-link u-header__nav-link" asp-route-category="@category.SeoUrl" asp-action="ProductCategory" asp-controller="Home">@category.Name</a>
+    </li>
 }

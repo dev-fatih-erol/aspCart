@@ -151,7 +151,7 @@
                 <div class="mx-md-auto mx-lg-0 col-md-6 col-lg-4 col-xl-3">
                     <div class="mb-2">
                         <div class="card p-5 border-width-2 border-color-1 borders-radius-17">
-                            <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">Availability: <span class="text-green font-weight-bold">26 in stock</span></div>
+                            <div class="text-gray-9 font-size-14 pb-2 border-color-1 border-bottom mb-3">Stok Durumu: <span class="text-green font-weight-bold">@Model.StockQuantity adet Stokta</span></div>
                             <div class="mb-3">
                                 @if (Model.OldPrice > 0)
                                 {
@@ -205,8 +205,8 @@
                                 <a href="#" class="btn btn-block btn-dark">Hemen Satın Al</a>
                             </div>
                             <div class="flex-content-center flex-wrap">
-                                <a href="#" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Wishlist</a>
-                                <a href="#" class="text-gray-6 font-size-13 ml-2"><i class="ec ec-compare mr-1 font-size-15"></i> Compare</a>
+                                <a asp-controller="Home" asp-action="Index" class="text-gray-6 font-size-13 mr-2"><i class="ec ec-favorites mr-1 font-size-15"></i> Favoriye Ekle</a>
+                                <a asp-controller="Home" asp-action="Index" class="text-gray-6 font-size-13 ml-2"><i class="ec ec-compare mr-1 font-size-15"></i> Karşılaştır</a>
                             </div>
                         </div>
                     </div>

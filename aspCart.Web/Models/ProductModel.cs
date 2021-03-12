@@ -41,6 +41,8 @@ namespace aspCart.Web.Models
 
         public int ReviewCount { get; set; }
 
+        public int StockQuantity { get; set; }
+
         public DateTime DateAdded { get; set; }
 
         public List<CategoryModel> Categories { get; set; }
